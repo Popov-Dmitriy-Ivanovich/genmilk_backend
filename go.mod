@@ -1,4 +1,4 @@
-module genmilk_backend
+module github.com/Popov-Dmitriy-Ivanovich/genmilk_backend
 
 go 1.23.5
 
