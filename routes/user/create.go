@@ -1,8 +1,8 @@
 package user_create
 
 import (
-	"cow_backend/models"
 	"fmt"
+	"genmilk_backend/models"
 	"net/smtp"
 	"os"
 	"time"

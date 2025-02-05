@@ -1,7 +1,7 @@
 package cows_filter
 
 import (
-	"cow_backend/filters"
+	"genmilk_backend/filters"
 )
 
 type ByIncludeOnlyFilter struct{}

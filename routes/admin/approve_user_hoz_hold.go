@@ -1,8 +1,8 @@
 package admin
 
 import (
-	"cow_backend/models"
 	"fmt"
+	"genmilk_backend/models"
 	"net/http"
 	"strconv"
 

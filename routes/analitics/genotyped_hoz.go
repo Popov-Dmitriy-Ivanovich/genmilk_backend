@@ -1,9 +1,9 @@
 package analitics
 
 import (
-	"cow_backend/filters"
-	"cow_backend/filters/cows_filter"
-	"cow_backend/models"
+	"genmilk_backend/filters"
+	"genmilk_backend/filters/cows_filter"
+	"genmilk_backend/models"
 	"log"
 	"net/http"
 	"strconv"

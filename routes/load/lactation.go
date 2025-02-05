@@ -2,9 +2,9 @@ package load
 
 import (
 	"context"
-	"cow_backend/models"
 	"encoding/csv"
 	"errors"
+	"genmilk_backend/models"
 	"io"
 	"log"
 	"os"

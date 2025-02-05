@@ -1,16 +1,17 @@
 package load
 
 import (
-	"cow_backend/models"
 	"encoding/csv"
 	"errors"
-	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
+	"genmilk_backend/models"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 const EXT_ASSESSMENT_DATE_COL = "assesment_date"

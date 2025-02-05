@@ -1,7 +1,7 @@
 package routes
 
 // import (
-// 	"cow_backend/models"
+// 	"genmilk_backend/models"
 // 	"encoding/json"
 // 	"time"
 

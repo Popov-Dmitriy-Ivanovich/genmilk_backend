@@ -1,8 +1,8 @@
 package load
 
 import (
-	"cow_backend/models"
 	"errors"
+	"genmilk_backend/models"
 	"log"
 	"sync"
 

@@ -1,8 +1,8 @@
 package analitics
 
 import (
-	"cow_backend/models"
-	"cow_backend/routes/auth"
+	"genmilk_backend/models"
+	"genmilk_backend/routes/auth"
 	"strconv"
 	"time"
 

@@ -1,9 +1,9 @@
 package cows
 
 import (
-	"cow_backend/filters/cows_filter"
-	"cow_backend/models"
 	"encoding/json"
+	"genmilk_backend/filters/cows_filter"
+	"genmilk_backend/models"
 	"net/http"
 	"strconv"
 

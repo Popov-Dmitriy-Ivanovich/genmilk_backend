@@ -1,9 +1,9 @@
 package cows
 
 import (
-	"cow_backend/models"
-	"cow_backend/routes"
 	"errors"
+	"genmilk_backend/models"
+	"genmilk_backend/routes"
 
 	"github.com/gin-gonic/gin"
 )

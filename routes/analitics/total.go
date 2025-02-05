@@ -1,10 +1,11 @@
 package analitics
 
 import (
-	"cow_backend/models"
-	"github.com/gin-gonic/gin"
+	"genmilk_backend/models"
 	"net/http"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
 )
 
 type Total struct{}

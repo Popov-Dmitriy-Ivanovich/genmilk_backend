@@ -1,8 +1,8 @@
 package cows_filter
 
 import (
-	"cow_backend/filters"
 	"errors"
+	"genmilk_backend/filters"
 )
 
 type ByAbort struct {

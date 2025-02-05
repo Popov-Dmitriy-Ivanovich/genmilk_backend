@@ -1,7 +1,7 @@
 package cows
 
 import (
-	"cow_backend/models"
+	"genmilk_backend/models"
 	"sort"
 
 	"github.com/gin-gonic/gin"

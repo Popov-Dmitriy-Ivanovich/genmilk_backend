@@ -1,8 +1,8 @@
 package districts
 
 import (
-	"cow_backend/models"
-	"cow_backend/routes"
+	"genmilk_backend/models"
+	"genmilk_backend/routes"
 
 	"github.com/gin-gonic/gin"
 )

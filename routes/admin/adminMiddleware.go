@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"cow_backend/models"
+	"genmilk_backend/models"
 	"net/http"
 	"os"
 

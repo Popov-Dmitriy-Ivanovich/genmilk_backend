@@ -1,9 +1,9 @@
 package load
 
 import (
-	"cow_backend/models"
 	"encoding/csv"
 	"errors"
+	"genmilk_backend/models"
 	"io"
 	"os"
 	"strconv"

@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"cow_backend/models"
+	"genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

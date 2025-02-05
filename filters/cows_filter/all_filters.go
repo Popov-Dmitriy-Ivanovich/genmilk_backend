@@ -1,6 +1,6 @@
 package cows_filter
 
-import "cow_backend/filters"
+import "genmilk_backend/filters"
 
 var ALL_FILTERS = []filters.Filter{
 	ByAbort{},

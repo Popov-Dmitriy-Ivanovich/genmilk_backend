@@ -1,9 +1,9 @@
 package cows_filter
 
 import (
-	"cow_backend/filters"
-	"cow_backend/models"
 	"errors"
+	"genmilk_backend/filters"
+	"genmilk_backend/models"
 )
 
 type ByHoz struct {

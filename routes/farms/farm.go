@@ -1,7 +1,7 @@
 package farms
 
 import (
-	"cow_backend/routes/auth"
+	"genmilk_backend/routes/auth"
 
 	// "net/http"
 
