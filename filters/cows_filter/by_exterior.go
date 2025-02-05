@@ -2,7 +2,8 @@ package cows_filter
 
 import (
 	"errors"
-	"genmilk_backend/filters"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type ByExterior struct {

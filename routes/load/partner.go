@@ -1,9 +1,10 @@
 package load
 
 import (
-	"genmilk_backend/models"
 	"strconv"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,10 +1,11 @@
 package analitics
 
 import (
-	"genmilk_backend/models"
-	"genmilk_backend/routes/auth"
 	"strconv"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/auth"
 
 	"github.com/gin-gonic/gin"
 )

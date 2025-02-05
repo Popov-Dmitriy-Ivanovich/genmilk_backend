@@ -2,8 +2,9 @@ package cows_filter
 
 import (
 	"errors"
-	"genmilk_backend/filters"
 	"strings"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type BySearchString struct {

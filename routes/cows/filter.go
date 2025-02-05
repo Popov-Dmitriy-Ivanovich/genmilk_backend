@@ -2,10 +2,11 @@ package cows
 
 import (
 	"encoding/json"
-	"genmilk_backend/filters/cows_filter"
-	"genmilk_backend/models"
 	"net/http"
 	"strconv"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	// "sort"
 	"time"

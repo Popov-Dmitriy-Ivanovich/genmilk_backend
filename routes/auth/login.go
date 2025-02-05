@@ -1,9 +1,10 @@
 package auth
 
 import (
-	"genmilk_backend/models"
 	"os"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"golang.org/x/crypto/bcrypt"
 

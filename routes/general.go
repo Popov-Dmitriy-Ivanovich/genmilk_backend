@@ -1,8 +1,9 @@
 package routes
 
 import (
-	"genmilk_backend/models"
 	"regexp"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

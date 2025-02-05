@@ -1,9 +1,9 @@
 package analitics
 
 import (
-	"genmilk_backend/filters"
-	"genmilk_backend/filters/cows_filter"
-	"genmilk_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

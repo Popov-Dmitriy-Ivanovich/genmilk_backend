@@ -2,8 +2,9 @@ package cows_filter
 
 import (
 	"errors"
-	"genmilk_backend/filters"
-	"genmilk_backend/models"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 )
 
 type ByHoz struct {

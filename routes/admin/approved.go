@@ -1,11 +1,12 @@
 package admin
 
 import (
-	"genmilk_backend/models"
 	"log"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

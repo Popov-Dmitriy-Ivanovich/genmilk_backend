@@ -3,12 +3,13 @@ package load
 import (
 	"encoding/csv"
 	"errors"
-	"genmilk_backend/models"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

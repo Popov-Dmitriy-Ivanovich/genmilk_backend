@@ -2,10 +2,11 @@ package user_create
 
 import (
 	"fmt"
-	"genmilk_backend/models"
 	"net/smtp"
 	"os"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"

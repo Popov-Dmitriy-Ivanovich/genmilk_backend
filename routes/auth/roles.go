@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"genmilk_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

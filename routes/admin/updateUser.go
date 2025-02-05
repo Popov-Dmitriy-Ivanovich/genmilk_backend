@@ -1,9 +1,10 @@
 package admin
 
 import (
-	"genmilk_backend/models"
 	"net/http"
 	"strconv"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"

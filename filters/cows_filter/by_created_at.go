@@ -2,8 +2,9 @@ package cows_filter
 
 import (
 	"errors"
-	"genmilk_backend/filters"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type ByCreatedAt struct {

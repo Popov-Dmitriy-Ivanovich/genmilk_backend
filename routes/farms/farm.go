@@ -1,7 +1,7 @@
 package farms
 
 import (
-	"genmilk_backend/routes/auth"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/auth"
 
 	// "net/http"
 

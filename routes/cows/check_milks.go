@@ -2,9 +2,10 @@ package cows
 
 import (
 	"errors"
-	"genmilk_backend/models"
-	"genmilk_backend/routes"
 	"sort"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes"
 
 	"github.com/gin-gonic/gin"
 )
