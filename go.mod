@@ -1,4 +1,4 @@
-module cow_backend
+module genmilk_backend
 
 go 1.23
 
