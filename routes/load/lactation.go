@@ -375,7 +375,7 @@ func (l *Load) Lactation() func(*gin.Context) {
 
 		w := &kafka.Writer{
 			Addr:                   kafka.TCP("kafka:9092"),
-			Topic:                  "topic-A",
+			Topic:                  "LactationLoadRequest",
 			AllowAutoTopicCreation: true,
 		}
 		messages := []kafka.Message{
