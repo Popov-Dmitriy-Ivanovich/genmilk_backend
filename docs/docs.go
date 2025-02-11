@@ -2007,6 +2007,38 @@ const docTemplate = `{
                 "summary": "Get list of sexes",
                 "responses": {}
             }
+        },
+        "/user/whoami": {
+            "get": {
+                "description": "Рут вернет данные о пользователе из БД",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "User"
+                ],
+                "summary": "Получить информацию о пользователе",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -2412,7 +2444,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "checkDate": {
-                    "description": "Дата конрольной дойки",
+                    "description": "Дата контрольной дойки",
                     "allOf": [
                         {
                             "$ref": "#/definitions/models.DateOnly"
@@ -2420,7 +2452,7 @@ const docTemplate = `{
                     ]
                 },
                 "dryMatter": {
-                    "description": "сухой материал",
+                    "description": "Сухой материал",
                     "type": "number"
                 },
                 "fat": {
@@ -2452,7 +2484,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "probeNumber": {
-                    "description": "номер пробы",
+                    "description": "Номер пробы",
                     "type": "integer"
                 },
                 "protein": {
@@ -2461,7 +2493,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "somaticNucCount": {
-                    "description": "количество соматических клеток",
+                    "description": "Количество соматических клеток",
                     "type": "number"
                 }
             }
@@ -2495,7 +2527,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "birthMethod": {
-                    "description": "способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
+                    "description": "Способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
                     "type": "string"
                 },
                 "breedId": {
@@ -2561,12 +2593,12 @@ const docTemplate = `{
                     "$ref": "#/definitions/models.Genetic"
                 },
                 "gradeHozId": {
-                    "description": "оценка по хозяйству",
+                    "description": "Оценка по хозяйству",
                     "type": "integer",
                     "example": 1
                 },
                 "gradeRegionId": {
-                    "description": "оценка по региону",
+                    "description": "Оценка по региону",
                     "type": "integer",
                     "example": 1
                 },
@@ -2587,7 +2619,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "identificationNumber": {
-                    "description": "он все-таки есть! это какой-то не российский номер коровы",
+                    "description": "Он все-таки есть! Это какой-то не российский номер коровы",
                     "type": "string"
                 },
                 "inbrindingCoeffByFamily": {
@@ -2871,7 +2903,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "checkDate": {
-                    "description": "Дата конрольной дойки",
+                    "description": "Дата контрольной дойки",
                     "allOf": [
                         {
                             "$ref": "#/definitions/models.DateOnly"
@@ -2879,7 +2911,7 @@ const docTemplate = `{
                     ]
                 },
                 "dryMatter": {
-                    "description": "сухой материал",
+                    "description": "Сухой материал",
                     "type": "number"
                 },
                 "fat": {
@@ -2903,7 +2935,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "probeNumber": {
-                    "description": "номер пробы",
+                    "description": "Номер пробы",
                     "type": "integer"
                 },
                 "protein": {
@@ -2912,7 +2944,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "somaticNucCount": {
-                    "description": "количество соматических клеток",
+                    "description": "Количество соматических клеток",
                     "type": "number"
                 }
             }
@@ -2946,7 +2978,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "birthMethod": {
-                    "description": "способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
+                    "description": "Способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
                     "type": "string"
                 },
                 "breedId": {
@@ -2996,12 +3028,12 @@ const docTemplate = `{
                     "$ref": "#/definitions/models.Genetic"
                 },
                 "gradeHozId": {
-                    "description": "оценка по хозяйству",
+                    "description": "Оценка по хозяйству",
                     "type": "integer",
                     "example": 1
                 },
                 "gradeRegionId": {
-                    "description": "оценка по региону",
+                    "description": "Оценка по региону",
                     "type": "integer",
                     "example": 1
                 },
@@ -3018,7 +3050,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "identificationNumber": {
-                    "description": "он все-таки есть! это какой-то не российский номер коровы",
+                    "description": "Он все-таки есть! Это какой-то не российский номер коровы",
                     "type": "string"
                 },
                 "inbrindingCoeffByFamily": {
@@ -3149,7 +3181,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "path": {
-                    "description": "путь к документу относительно genmilk.ru/api/static/documents",
+                    "description": "Путь к документу относительно genmilk.ru/api/static/documents",
                     "type": "string"
                 }
             }
@@ -3158,11 +3190,11 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "comment1": {
-                    "description": "Коментарий 1 (по всей видиости сюда что-то пришет врач)",
+                    "description": "Комментарий 1 (по всей видимости сюда что-то пришит врач)",
                     "type": "string"
                 },
                 "comment2": {
-                    "description": "Коментарий 2",
+                    "description": "Комментарий 2",
                     "type": "string"
                 },
                 "cowId": {
@@ -3170,7 +3202,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "dataResourse": {
-                    "description": "источник данных",
+                    "description": "Источник данных",
                     "type": "string"
                 },
                 "date": {
@@ -3182,7 +3214,7 @@ const docTemplate = `{
                     ]
                 },
                 "daysFromLactation": {
-                    "description": "дни от начала лактации",
+                    "description": "Дни от начала лактации",
                     "type": "integer"
                 },
                 "eventType": {
@@ -3192,18 +3224,18 @@ const docTemplate = `{
                     "$ref": "#/definitions/models.EventType"
                 },
                 "eventType1Id": {
-                    "description": "стандартизированная название события",
+                    "description": "Стандартизированная название события",
                     "type": "integer"
                 },
                 "eventType2": {
                     "$ref": "#/definitions/models.EventType"
                 },
                 "eventType2Id": {
-                    "description": "стандартизированное разновидность события",
+                    "description": "Стандартизированное разновидность события",
                     "type": "integer"
                 },
                 "eventTypeId": {
-                    "description": "стандартизированная группа события",
+                    "description": "Стандартизированная группа события",
                     "type": "integer"
                 },
                 "id": {
@@ -3215,7 +3247,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "code": {
-                    "description": "код группы или разновидности или названия события",
+                    "description": "Код группы или разновидности или названия события",
                     "type": "integer"
                 },
                 "id": {
@@ -3311,6 +3343,7 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "milkStrength": {
+                    "description": "100 бальные",
                     "type": "number"
                 },
                 "pelvicWidth": {
@@ -3359,7 +3392,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "cowsCount": {
-                    "description": "количество коров",
+                    "description": "Количество коров",
                     "type": "integer"
                 },
                 "description": {
@@ -3371,7 +3404,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "email": {
-                    "description": "эл. почта",
+                    "description": "Эл. почта",
                     "type": "string"
                 },
                 "hozNumber": {
@@ -3390,7 +3423,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "nameShort": {
-                    "description": "Краткое название хозйства",
+                    "description": "Краткое название хозяйства",
                     "type": "string"
                 },
                 "parrentId": {
@@ -3430,7 +3463,7 @@ const docTemplate = `{
                     }
                 },
                 "gtcFilePath": {
-                    "description": "путь к gtc файлу относительно genmilk.ru/api/static/gtc",
+                    "description": "Путь к gtc файлу относительно genmilk.ru/api/static/gtc",
                     "type": "string"
                 },
                 "id": {
@@ -3446,7 +3479,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "resultDate": {
-                    "description": "Дата получения  результата",
+                    "description": "Дата получения результата",
                     "allOf": [
                         {
                             "$ref": "#/definitions/models.DateOnly"
@@ -3516,6 +3549,9 @@ const docTemplate = `{
         "models.Grade": {
             "type": "object",
             "properties": {
+                "cowID": {
+                    "type": "integer"
+                },
                 "ebvFat": {
                     "description": "Оценка жира по EBV",
                     "type": "number"
@@ -3537,7 +3573,7 @@ const docTemplate = `{
                     "type": "number"
                 },
                 "generalValue": {
-                    "description": "CowID           uint",
+                    "description": "Общая оценка по EBV",
                     "type": "number"
                 },
                 "id": {
@@ -3645,7 +3681,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "days": {
-                    "description": "количество дней, когда корова дает молоко",
+                    "description": "Количество дней, когда корова дает молоко",
                     "type": "integer"
                 },
                 "fat305": {
@@ -3733,18 +3769,18 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "description": {
-                    "description": "описание партнера",
+                    "description": "Описание партнера",
                     "type": "string"
                 },
                 "email": {
-                    "description": "эл. почта",
+                    "description": "Эл. почта",
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
                 "logoPath": {
-                    "description": "путь к логотипу партнера относительно genmlik.ru/api/static/partners",
+                    "description": "Путь к логотипу партнера относительно genmlik.ru/api/static/partners",
                     "type": "string"
                 },
                 "name": {
@@ -3765,7 +3801,7 @@ const docTemplate = `{
                     "default": 1
                 },
                 "name": {
-                    "description": "название региона",
+                    "description": "Название региона",
                     "type": "string",
                     "example": "Усть-Каменский"
                 },
@@ -3776,7 +3812,7 @@ const docTemplate = `{
                     }
                 },
                 "regNum": {
-                    "description": "номер региона (Архангельская область = 29)",
+                    "description": "Номер региона (Архангельская область = 29)",
                     "type": "integer"
                 }
             }
@@ -3788,7 +3824,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "name": {
-                    "description": "название роли",
+                    "description": "Название роли",
                     "type": "string"
                 }
             }
@@ -3824,7 +3860,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "hozNumber": {
-                    "description": "номер хоз-ва к которому привязвыается пользователь: либо существует, либо newHoz",
+                    "description": "Номер хоз-ва к которому привязвыается пользователь: либо существует, либо newHoz",
                     "type": "string"
                 },
                 "id": {
