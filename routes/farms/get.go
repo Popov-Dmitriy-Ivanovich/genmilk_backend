@@ -1,8 +1,8 @@
 package farms
 
 import (
-	"cow_backend/models"
-	"cow_backend/routes"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes"
 	"net/http"
 
 	"github.com/gin-gonic/gin"

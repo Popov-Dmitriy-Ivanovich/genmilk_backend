@@ -1,8 +1,8 @@
 package cows
 
 import (
-	"cow_backend/filters/cows_filter"
-	"cow_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 	"encoding/json"
 	"net/http"
 	"strconv"

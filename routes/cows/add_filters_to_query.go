@@ -1,8 +1,8 @@
 package cows
 
 import (
-	"cow_backend/filters"
-	"cow_backend/filters/cows_filter"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
 
 	"gorm.io/gorm"
 )

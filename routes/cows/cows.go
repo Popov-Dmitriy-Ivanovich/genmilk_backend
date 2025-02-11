@@ -1,7 +1,7 @@
 package cows
 
 import (
-	"cow_backend/routes/auth"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/auth"
 
 	"github.com/gin-gonic/gin"
 )

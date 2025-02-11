@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"cow_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 	"os"
 	"time"
 

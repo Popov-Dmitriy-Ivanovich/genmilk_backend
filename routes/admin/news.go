@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"cow_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 	"math"
 	"net/http"
 	"strconv"

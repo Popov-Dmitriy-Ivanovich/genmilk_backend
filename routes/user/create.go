@@ -1,7 +1,7 @@
 package user_create
 
 import (
-	"cow_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 	"fmt"
 	"net/smtp"
 	"os"

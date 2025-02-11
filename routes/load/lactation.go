@@ -1,7 +1,7 @@
 package load
 
 import (
-	"cow_backend/models"
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 	"errors"
 	"io"
 	"log"
