@@ -1,15 +1,13 @@
 package load
 
 import (
-	"encoding/csv"
+	"cow_backend/models"
 	"errors"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -196,7 +194,7 @@ func (gr *geneticRecord) FromCsvRecord(rec []string) (CsvToDbLoader, error) {
 	gr.ProbeNumber = rec[gr.HeaderIndexes[PROBE_NUMBER_COLUMN]]
 
 	if dateStr := rec[gr.HeaderIndexes[BLOOD_DATE_COLUMN]]; dateStr != "" {
-		if date, err := time.Parse(time.DateOnly, dateStr); err == nil {
+		if date, err := ParseTime(dateStr); err == nil {
 			gr.BloodDate = &models.DateOnly{Time: date}
 		} else {
 			return nil, errors.New("Не удалось распарсить дату " + dateStr)
@@ -204,7 +202,7 @@ func (gr *geneticRecord) FromCsvRecord(rec []string) (CsvToDbLoader, error) {
 	}
 
 	if dateStr := rec[gr.HeaderIndexes[RESULT_DATE_COLUMN]]; dateStr != "" {
-		if date, err := time.Parse(time.DateOnly, dateStr); err == nil {
+		if date, err := ParseTime(dateStr); err == nil {
 			gr.ResultDate = &models.DateOnly{Time: date}
 		} else {
 			return nil, errors.New("Не удалось распарсить дату " + dateStr)
@@ -302,8 +300,7 @@ func (l *Load) Genetic() func(*gin.Context) {
 			return
 		}
 		defer file.Close()
-		csvReader := csv.NewReader(file)
-		header, err := csvReader.Read()
+		csvReader, header, err := GetCsvReader(file)
 		if err != nil {
 			c.JSON(422, err.Error())
 			return

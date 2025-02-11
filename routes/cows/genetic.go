@@ -1,7 +1,7 @@
 package cows
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	"cow_backend/models"
 
 	"github.com/gin-gonic/gin"
 )

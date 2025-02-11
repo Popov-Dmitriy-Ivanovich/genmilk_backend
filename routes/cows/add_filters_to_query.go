@@ -1,8 +1,8 @@
 package cows
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
+	"cow_backend/filters"
+	"cow_backend/filters/cows_filter"
 
 	"gorm.io/gorm"
 )
@@ -59,7 +59,30 @@ type CowsFilter struct { // Фильтр коров
 func AddFiltersToQuery(bodyData cows_filter.CowsFilter, query *gorm.DB) (*gorm.DB, error) {
 	cfm := cows_filter.NewCowFilteredModel(bodyData, query)
 	if err := filters.ApplyFilters(cfm,
-		cows_filter.ALL_FILTERS...); err != nil {
+		cows_filter.ByAbort{},
+		cows_filter.ByAnyIllneses{},
+		cows_filter.ByBirkingDate{},
+		cows_filter.ByBreed{},
+		cows_filter.ByBrithDate{},
+		cows_filter.ByCalvingDate{},
+		cows_filter.ByControlMilkingDate{},
+		cows_filter.ByCreatedAt{},
+		cows_filter.ByDeath{},
+		cows_filter.ByDepartDate{},
+		cows_filter.ByExterior{},
+		cows_filter.ByHoz{},
+		cows_filter.ByIllDate{},
+		cows_filter.ByInbrindingCoeffByFamily{},
+		cows_filter.ByInbrindingCoeffByGenotype{},
+		cows_filter.ByIsGenotyped{},
+		cows_filter.ByInsemenationDate{},
+		cows_filter.BySearchString{},
+		cows_filter.BySex{},
+		cows_filter.ByStillBorn{},
+		cows_filter.ByTwins{},
+		cows_filter.ByMonogeneticIllnesses{},
+		cows_filter.OrderBy{},
+		cows_filter.ByRegion{}); err != nil {
 		return nil, err
 	}
 	return cfm.GetQuery(), nil

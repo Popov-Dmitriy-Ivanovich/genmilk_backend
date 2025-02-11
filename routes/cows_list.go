@@ -1,7 +1,7 @@
 package routes
 
 // import (
-// 	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+// 	"cow_backend/models"
 // 	"encoding/json"
 // 	"time"
 

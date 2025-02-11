@@ -57,23 +57,21 @@ type GeneticIllnessStatus struct {
 }
 
 func (g *Genetic) BeforeCreate(tx *gorm.DB) error {
-	now := time.Now().UTC()
 	if g.ResultDate == nil {
-		g.ResultDate = &DateOnly{Time: now.AddDate(-1, 0, 1)}
+		g.ResultDate = &DateOnly{Time: time.Now().UTC()}
 	}
 	if g.BloodDate == nil {
-		g.BloodDate = &DateOnly{Time: now}
+		g.BloodDate = &DateOnly{Time: time.Now().UTC()}
 	}
 	return g.Validate()
 }
 
 func (g *Genetic) BeforeUpdate(tx *gorm.DB) error {
-	now := time.Now().UTC()
 	if g.ResultDate == nil {
-		g.ResultDate = &DateOnly{Time: now.AddDate(-1, 0, 1)}
+		g.ResultDate = &DateOnly{Time: time.Now().UTC()}
 	}
 	if g.BloodDate == nil {
-		g.BloodDate = &DateOnly{Time: now}
+		g.BloodDate = &DateOnly{Time: time.Now().UTC()}
 	}
 	return g.Validate()
 }

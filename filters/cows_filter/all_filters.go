@@ -1,6 +1,6 @@
 package cows_filter
 
-import "github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
+import "cow_backend/filters"
 
 var ALL_FILTERS = []filters.Filter{
 	ByAbort{},
@@ -31,6 +31,4 @@ var ALL_FILTERS = []filters.Filter{
 	LiveInDistrict{},
 	LiveInHolding{},
 	LiveInRegion{},
-	ByEbvRegionGeneralValue{},
-	ByIncludeOnlyFilter{},
 }

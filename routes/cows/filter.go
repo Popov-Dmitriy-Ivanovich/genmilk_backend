@@ -1,12 +1,11 @@
 package cows
 
 import (
+	"cow_backend/filters/cows_filter"
+	"cow_backend/models"
 	"encoding/json"
 	"net/http"
 	"strconv"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	// "sort"
 	"time"
@@ -23,7 +22,7 @@ type FilterSerializedCow struct {
 	InventoryNumber           *string                     `validate:"required" example:"321"`                                   // Инвентарный номер коровы
 	Name                      string                      `validate:"required" example:"Буренка"`                               // Кличка коровы
 	FarmGroupName             string                      `validate:"required" example:"ООО Аурус"`                             // Название хозяйства, в котором корова
-	BirthDate                 *models.DateOnly            `validate:"required"`                                                 // Дата рождения коровы
+	BirthDate                 models.DateOnly             `validate:"required"`                                                 // Дата рождения коровы
 	Genotyped                 bool                        `validate:"required" example:"true"`                                  // Факт генотипирования коровы
 	Approved                  bool                        `validate:"required" example:"true"`                                  // Подтверждена ли админом
 	DepartDate                *models.DateOnly            `json:",omitempty" validate:"optional"`                               // Дата выбытия
@@ -40,15 +39,14 @@ type FilterSerializedCow struct {
 	SexName                   *string                     `json:",omitempty" validate:"optional"`                               // Название породы
 	HozName                   *string                     `json:",omitempty" validate:"optional"`                               // Название хозяйства
 
-	DeathDate             *models.DateOnly `json:",omitempty" validate:"optional"` // Дата смерти
-	IsDead                *bool            `json:",omitempty" validate:"optional"` // Факт смерти
-	IsTwins               *bool            `json:",omitempty" validate:"optional"` // Факт рождения близнецов
-	IsStillBorn           *bool            `json:",omitempty" validate:"optional"` // Факт мертворождения
-	IsAborted             *bool            `json:",omitempty" validate:"optional"` // Факт аборта
-	Events                []models.Event   `json:",omitempty" validate:"optional"` // Вет события
-	IsGenotyped           *bool            `json:",omitempty" validate:"optional"` // Факт генотипирования
-	CreatedAt             *models.DateOnly `json:",omitempty" validate:"optional"` // Дата внесения информации о корове в БД
-	EbvGeneralValueRegion *float64         // Общая оценка EBV по региону
+	DeathDate   *models.DateOnly `json:",omitempty" validate:"optional"` // Дата смерти
+	IsDead      *bool            `json:",omitempty" validate:"optional"` // Факт смерти
+	IsTwins     *bool            `json:",omitempty" validate:"optional"` // Факт рождения близнецов
+	IsStillBorn *bool            `json:",omitempty" validate:"optional"` // Факт мертворождения
+	IsAborted   *bool            `json:",omitempty" validate:"optional"` // Факт аборта
+	Events      []models.Event   `json:",omitempty" validate:"optional"` // Вет события
+	IsGenotyped *bool            `json:",omitempty" validate:"optional"` // Факт генотипирования
+	CreatedAt   *models.DateOnly `json:",omitempty" validate:"optional"` // Дата внесения информации о корове в БД
 }
 
 func serializeByFilter(c *models.Cow, filter *cows_filter.CowsFilter) FilterSerializedCow {
@@ -61,12 +59,6 @@ func serializeByFilter(c *models.Cow, filter *cows_filter.CowsFilter) FilterSeri
 		BirthDate:       c.BirthDate,
 		Genotyped:       c.Genetic != nil,
 		Approved:        c.Approved != 0,
-		// EbvGeneralValueRegion: c.GradeRegion.GeneralValue,
-	}
-	if c.GradeRegion != nil {
-		res.EbvGeneralValueRegion = c.GradeRegion.GeneralValue
-	} else {
-		c.GradeRegion = nil
 	}
 	if filter.DepartDateTo != nil && *filter.DepartDateTo != "" ||
 		filter.DepartDateFrom != nil && *filter.DepartDateFrom != "" {
@@ -229,10 +221,6 @@ func serializeByFilter(c *models.Cow, filter *cows_filter.CowsFilter) FilterSeri
 		filter.CreatedAtTo != nil && *filter.CreatedAtTo != "" {
 		res.CreatedAt = &models.DateOnly{Time: c.CreatedAt}
 	}
-
-	if filter.EbvGeneralValueRegionFrom != nil || filter.EbvGeneralValueRegionTo != nil {
-		res.EbvGeneralValueRegion = c.GradeRegion.GeneralValue
-	}
 	return res
 }
 
@@ -307,7 +295,7 @@ func (c *Cows) Filter() func(*gin.Context) {
 		}
 
 		db := models.GetDb()
-		query := db.Model(&models.Cow{}).Preload("FarmGroup").Preload("Genetic").Joins("GradeRegion").Where("approved <> -1")
+		query := db.Model(&models.Cow{}).Preload("FarmGroup").Preload("Genetic").Where("approved <> -1")
 		if nQuery, err := AddFiltersToQuery(bodyData, query); err != nil {
 			c.JSON(422, err.Error())
 			return
@@ -335,7 +323,7 @@ func (c *Cows) Filter() func(*gin.Context) {
 			return
 		}
 
-		query = query.Limit(int(recordsPerPage)).Offset(int(recordsPerPage) * int(pageNumber-1))
+		query = query.Limit(int(recordsPerPage)).Offset(int(recordsPerPage) * int(pageNumber-1)).Order("inventory_number")
 		dbCows := []models.Cow{}
 		if err := query.Debug().Find(&dbCows).Error; err != nil {
 			c.JSON(500, err.Error())

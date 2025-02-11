@@ -1,11 +1,10 @@
 package cows_filter
 
 import (
+	"cow_backend/filters"
 	"errors"
 	"strconv"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type AliveInYear struct {

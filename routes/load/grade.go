@@ -1,15 +1,13 @@
 package load
 
 import (
-	"encoding/csv"
+	"cow_backend/models"
 	"errors"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -30,10 +28,6 @@ const GR_EBV_FAT_REG_COL = "evb_fatReg"
 const GR_EBV_PROTEIN_REG_COL = "ebv_proteinReg"
 const GR_EBV_INSEMENATION_REG_COL = "ebv_insemenationReg"
 const GR_EBV_SERVICE_REG_COL = "ebv_serviceReg"
-
-const GR_EBV_MILK_REG_REL_COL = "ebv_milkReg_rel"
-const GR_EBV_FAT_REG_REL_COL = "ebv_fatReg_rel"
-const GR_EBV_PROTEIN_REG_REL_COL = "ebv_proteinReg_rel"
 
 type gradeRecord struct {
 	CowSelecs uint
@@ -56,10 +50,6 @@ type gradeRecord struct {
 	GeneralValueHoz *float64
 	GeneralValueReg *float64
 	HeaderIndexes   map[string]int
-
-	EbvMilkRegRel    *float64
-	EbvFatRegRel     *float64
-	EbvProteinRegRel *float64
 }
 
 var gradeRecordParsers = map[string]func(*gradeRecord, []string) error{
@@ -235,45 +225,6 @@ var gradeRecordParsers = map[string]func(*gradeRecord, []string) error{
 		gr.EbvServiceReg = &ebvFloat
 		return nil
 	},
-	GR_EBV_MILK_REG_REL_COL: func(gr *gradeRecord, rec []string) error {
-		milkRel := rec[gr.HeaderIndexes[GR_EBV_MILK_REG_REL_COL]]
-		if milkRel == "" {
-			gr.EbvMilkRegRel = nil
-			return nil
-		}
-		milkRelFloat, err := strconv.ParseFloat(milkRel, 64)
-		if err != nil {
-			return errors.New("не удалось распарсить general value hoz = " + milkRel + " " + err.Error())
-		}
-		gr.EbvMilkRegRel = &milkRelFloat
-		return nil
-	},
-	GR_EBV_FAT_REG_REL_COL: func(gr *gradeRecord, rec []string) error {
-		fatRel := rec[gr.HeaderIndexes[GR_EBV_FAT_REG_REL_COL]]
-		if fatRel == "" {
-			gr.EbvFatRegRel = nil
-			return nil
-		}
-		fatRelFloat, err := strconv.ParseFloat(fatRel, 64)
-		if err != nil {
-			return errors.New("не удалось распарсить general value hoz = " + fatRel + " " + err.Error())
-		}
-		gr.EbvFatRegRel = &fatRelFloat
-		return nil
-	},
-	GR_EBV_PROTEIN_REG_REL_COL: func(gr *gradeRecord, rec []string) error {
-		proteinRel := rec[gr.HeaderIndexes[GR_EBV_PROTEIN_REG_REL_COL]]
-		if proteinRel == "" {
-			gr.EbvProteinRegRel = nil
-			return nil
-		}
-		proteinRelFloat, err := strconv.ParseFloat(proteinRel, 64)
-		if err != nil {
-			return errors.New("не удалось распарсить general value hoz = " + proteinRel + " " + err.Error())
-		}
-		gr.EbvProteinRegRel = &proteinRelFloat
-		return nil
-	},
 }
 
 func NewGradeRecord(header []string) (*gradeRecord, error) {
@@ -294,9 +245,6 @@ func NewGradeRecord(header []string) (*gradeRecord, error) {
 		GR_EBV_PROTEIN_REG_COL,
 		GR_EBV_INSEMENATION_REG_COL,
 		GR_EBV_SERVICE_REG_COL,
-		GR_EBV_MILK_REG_REL_COL,
-		GR_EBV_FAT_REG_REL_COL,
-		GR_EBV_PROTEIN_REG_REL_COL,
 	}
 	gr.HeaderIndexes = make(map[string]int)
 	for idx, col := range header {
@@ -334,9 +282,8 @@ func (gr *gradeRecord) ToDbModel(tx *gorm.DB) (any, error) {
 		return nil, errors.New("Для коровы с селексом " + strconv.FormatUint(uint64(gr.CowSelecs), 10) + " Уже существует оценка по региону")
 	}
 
-	grCow.GradeHoz = new(models.GradeHoz)
-	grCow.GradeRegion = new(models.GradeRegion)
-	grCow.GradeCountry = new(models.GradeCountry)
+	grCow.GradeHoz = new(models.Grade)
+	grCow.GradeRegion = new(models.Grade)
 
 	grCow.GradeHoz.EbvFat = gr.EbvFatHoz
 	grCow.GradeRegion.EbvFat = gr.EbvFatReg
@@ -350,16 +297,11 @@ func (gr *gradeRecord) ToDbModel(tx *gorm.DB) (any, error) {
 	grCow.GradeHoz.EbvProtein = gr.EbvProteinHoz
 	grCow.GradeRegion.EbvProtein = gr.EbvProteinReg
 
-	grCow.GradeHoz.EbvService = gr.EbvServiceHoz
-	grCow.GradeRegion.EbvService = gr.EbvServiceReg
+	grCow.GradeHoz.EvbService = gr.EbvServiceHoz
+	grCow.GradeRegion.EvbService = gr.EbvServiceReg
 
 	grCow.GradeHoz.GeneralValue = gr.GeneralValueHoz
 	grCow.GradeRegion.GeneralValue = gr.GeneralValueReg
-
-	grCow.GradeRegion.EbvFatReliability = gr.EbvFatRegRel
-	grCow.GradeRegion.EbvMilkReliability = gr.EbvMilkRegRel
-	grCow.GradeRegion.EbvProteinReliability = gr.EbvProteinRegRel
-
 	return grCow, nil
 }
 
@@ -400,8 +342,7 @@ func (l *Load) Grade() func(*gin.Context) {
 			return
 		}
 		defer file.Close()
-		csvReader := csv.NewReader(file)
-		header, err := csvReader.Read()
+		csvReader, header, err := GetCsvReader(file)
 		if err != nil {
 			c.JSON(422, err.Error())
 			return

@@ -1,14 +1,13 @@
 package analitics
 
 import (
+	"cow_backend/filters"
+	"cow_backend/filters/cows_filter"
+	"cow_backend/models"
+	"cow_backend/routes/auth"
 	"log"
 	"net/http"
 	"strconv"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/auth"
 
 	"github.com/gin-gonic/gin"
 )

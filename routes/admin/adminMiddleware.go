@@ -1,10 +1,9 @@
 package admin
 
 import (
+	"cow_backend/models"
 	"net/http"
 	"os"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/sessions"

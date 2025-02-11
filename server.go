@@ -1,32 +1,31 @@
 package main
 
 import (
+	"cow_backend/models"
+	"cow_backend/routes"
+	"cow_backend/routes/admin"
+	"cow_backend/routes/analitics"
+	"cow_backend/routes/auth"
+	"cow_backend/routes/breeds"
+	checkmilks "cow_backend/routes/check_milks"
+	"cow_backend/routes/cows"
+	dailymilks "cow_backend/routes/daily_milks"
+	"cow_backend/routes/districts"
+	"cow_backend/routes/farms"
+	"cow_backend/routes/gui"
+	"cow_backend/routes/lactations"
+	"cow_backend/routes/load"
+	"cow_backend/routes/monogenetic_illnesses"
+	"cow_backend/routes/partners"
+	"cow_backend/routes/regions"
+	"cow_backend/routes/sexes"
+	"cow_backend/routes/updates"
+	user_create "cow_backend/routes/user"
 	"fmt"
 	"text/template"
 
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/admin"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/analitics"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/auth"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/breeds"
-	checkmilks "github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/check_milks"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/cows"
-	dailymilks "github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/daily_milks"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/districts"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/farms"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/gui"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/lactations"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/load"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/monogenetic_illnesses"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/partners"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/regions"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/sexes"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/updates"
-	user_create "github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/user"
-
 	// "net/http"
-	_ "github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/docs"
+	_ "cow_backend/docs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -57,7 +56,7 @@ func seq(start, end int) []int {
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host      83.69.249.5
+// @host      genmilk.ru
 // @BasePath  /api
 
 // @securityDefinitions.basic  BasicAuth

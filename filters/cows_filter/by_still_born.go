@@ -1,9 +1,8 @@
 package cows_filter
 
 import (
+	"cow_backend/filters"
 	"errors"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type ByStillBorn struct {

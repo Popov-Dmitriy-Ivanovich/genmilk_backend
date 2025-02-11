@@ -1,27 +1,24 @@
 package cows_filter
 
 import (
+	"cow_backend/filters"
 	"errors"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type OrderBy struct {
 }
 
 var orderingsDesc = map[string]string{
-	"RSHN":             "rshn_number desc NULLS LAST",
-	"InventoryNumber":  "inventory_number desc NULLS LAST",
-	"Name":             "name desc NULLS LAST",
-	"BirthDate":        "birth_date desc NULLS LAST",
-	"GeneralEbvRegion": "\"GradeRegion\".general_value desc NULLS LAST",
+	"RSHN":            "rshn_number desc",
+	"InventoryNumber": "inventory_number desc",
+	"Name":            "name desc",
+	"BirthDate":       "birth_date desc",
 }
 var orderingsAsc = map[string]string{
-	"RSHN":             "rshn_number asc NULLS LAST",
-	"InventoryNumber":  "inventory_number asc NULLS LAST",
-	"Name":             "name asc NULLS LAST",
-	"BirthDate":        "birth_date asc NULLS LAST",
-	"GeneralEbvRegion": "\"GradeRegion\".general_value asc NULLS LAST",
+	"RSHN":            "rshn_number asc",
+	"InventoryNumber": "inventory_number asc",
+	"Name":            "name asc",
+	"BirthDate":       "birth_date asc",
 }
 
 func (f OrderBy) Apply(fm filters.FilteredModel) error {
@@ -45,7 +42,7 @@ func (f OrderBy) Apply(fm filters.FilteredModel) error {
 				return nil
 			}
 		}
-		query = query.Joins("GradeRegion").Order(orderStr)
+		query = query.Order(orderStr)
 	}
 
 	fm.SetQuery(query)

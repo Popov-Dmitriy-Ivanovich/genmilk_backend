@@ -1,15 +1,13 @@
 package load
 
 import (
-	"encoding/csv"
+	"cow_backend/models"
 	"errors"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -37,7 +35,7 @@ type cowRecord struct {
 	Name                    string
 	InbrindingCoeffByFamily *float64
 
-	BirthDate   *models.DateOnly
+	BirthDate   models.DateOnly
 	DepartDate  *models.DateOnly
 	DeathDate   *models.DateOnly
 	BirkingDate *models.DateOnly
@@ -166,23 +164,22 @@ func (cr *cowRecord) FromCsvRecord(rec []string) (CsvToDbLoader, error) {
 			res.InbrindingCoeffByFamily = &icbf
 		}
 	}
-	if rec[cr.HeaderIndexes["BirthDate"]] != "" {
-		if birthDate, err := time.Parse(time.DateOnly, rec[cr.HeaderIndexes["BirthDate"]]); err != nil {
-			return nil, err
-		} else {
-			res.BirthDate = &models.DateOnly{Time: birthDate}
-		}
+
+	if birthDate, err := ParseTime(rec[cr.HeaderIndexes["BirthDate"]]); err != nil {
+		return nil, err
+	} else {
+		res.BirthDate = models.DateOnly{Time: birthDate}
 	}
 
 	if rec[cr.HeaderIndexes["DepartDate"]] != "" {
-		if depDate, err := time.Parse(time.DateOnly, rec[cr.HeaderIndexes["DepartDate"]]); err != nil {
+		if depDate, err := ParseTime(rec[cr.HeaderIndexes["DepartDate"]]); err != nil {
 			return nil, err
 		} else {
 			res.DepartDate = &models.DateOnly{Time: depDate}
 		}
 	}
 	if rec[cr.HeaderIndexes["DeathDate"]] != "" {
-		if deathDate, err := time.Parse(time.DateOnly, rec[cr.HeaderIndexes["DeathDate"]]); err != nil {
+		if deathDate, err := ParseTime(rec[cr.HeaderIndexes["DeathDate"]]); err != nil {
 			return nil, err
 		} else {
 			res.DepartDate = &models.DateOnly{Time: deathDate}
@@ -194,7 +191,7 @@ func (cr *cowRecord) FromCsvRecord(rec []string) (CsvToDbLoader, error) {
 	}
 
 	if rec[cr.HeaderIndexes["BirkingDate"]] != "" {
-		if birkingDate, err := time.Parse(time.DateOnly, rec[cr.HeaderIndexes["BirkingDate"]]); err != nil {
+		if birkingDate, err := ParseTime(rec[cr.HeaderIndexes["BirkingDate"]]); err != nil {
 			return nil, err
 		} else {
 			res.BirkingDate = &models.DateOnly{Time: birkingDate}
@@ -316,8 +313,7 @@ func (l *Load) Cow() func(*gin.Context) {
 			return
 		}
 		defer file.Close()
-		csvReader := csv.NewReader(file)
-		header, err := csvReader.Read()
+		csvReader, header, err := GetCsvReader(file)
 		if err != nil {
 			c.JSON(422, err.Error())
 			return

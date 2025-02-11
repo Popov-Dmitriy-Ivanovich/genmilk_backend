@@ -1,13 +1,12 @@
 package load
 
 import (
+	"cow_backend/models"
 	"encoding/csv"
 	"io"
 	"os"
 	"strconv"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

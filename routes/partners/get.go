@@ -1,8 +1,8 @@
 package partners
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes"
+	"cow_backend/models"
+	"cow_backend/routes"
 
 	"github.com/gin-gonic/gin"
 )

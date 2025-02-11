@@ -656,114 +656,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/analitics/total/farm/{farm_id}": {
-            "get": {
-                "description": "Еще не придумал что возвращает",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "NEW_ANALITICS"
-                ],
-                "summary": "Get statistics for region",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "холдинг/хозяйство по которому собиается статистика",
-                        "name": "farm_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/analitics.RegionalResponse"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/analitics/total/region/{region_id}": {
-            "get": {
-                "description": "Еще не придумал что возвращает",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "NEW_ANALITICS"
-                ],
-                "summary": "Get statistics for region",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "регион по которому собиается статистика",
-                        "name": "region_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/analitics.RegionalResponse"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/analitics/total/{region_id}/regionalStatistics": {
-            "get": {
-                "description": "Еще не придумал что возвращает",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "NEW_ANALITICS"
-                ],
-                "summary": "Get statistics for region",
-                "parameters": [
-                    {
-                        "type": "integer",
-                        "description": "регион по которому собиается статистика",
-                        "name": "region_id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/analitics.RegionalResponse"
-                            }
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
         "/auth/checkEmail": {
             "get": {
                 "consumes": [
@@ -1427,7 +1319,7 @@ const docTemplate = `{
         },
         "/cows/{id}/grades": {
             "get": {
-                "description": "Возращает словарь с ключами:\n1. ByRegion - Значения оценок EBV по региону\n2. ByHoz - Значения оценок EBV по хозяйству\n3. ByCountry - Значения оценок EBV по стране\n4. Average - Средние значения оценок EBV\n5. PercentsRegion - Отклонение оценок от среднего значения для региона",
+                "description": "Возращает словарь с двумя ключам \"ByRegion\" - оценки по региону и \"ByHoz\" - оценки по хозяйству",
                 "produces": [
                     "application/json"
                 ],
@@ -1668,7 +1560,6 @@ const docTemplate = `{
                     "Farms"
                 ],
                 "summary": "Get list of farms",
-                "deprecated": true,
                 "parameters": [
                     {
                         "type": "object",
@@ -1695,93 +1586,6 @@ const docTemplate = `{
                     },
                     "422": {
                         "description": "Unprocessable Entity",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/farms/farm": {
-            "get": {
-                "description": "Возвращает список всех ферм",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Farms"
-                ],
-                "summary": "Get list of Farms",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Farm"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/farms/hold": {
-            "get": {
-                "description": "Возвращает список всех холдингов",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Farms"
-                ],
-                "summary": "Get list of holdings",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Farm"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "/farms/hoz": {
-            "get": {
-                "description": "Возвращает список всех хозяйств",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "Farms"
-                ],
-                "summary": "Get list of Hoz",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.Farm"
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
                         "schema": {
                             "type": "string"
                         }
@@ -2012,7 +1816,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "zzDeprecated"
+                    "Regions"
                 ],
                 "summary": "Get farm by region id",
                 "parameters": [
@@ -2206,73 +2010,6 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "analitics.RegionalResponse": {
-            "type": "object",
-            "properties": {
-                "avgCount": {
-                    "description": "Количество коров с минимальным индексом",
-                    "type": "integer"
-                },
-                "avgCowIds": {
-                    "description": "ID коров с средним значением индекса",
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    }
-                },
-                "avgIndex": {
-                    "description": "Значение среднего индекса",
-                    "type": "number"
-                },
-                "farm": {
-                    "$ref": "#/definitions/models.Farm"
-                },
-                "farmID": {
-                    "description": "не null, если статистика собрана по холдингу или хозяйству",
-                    "type": "integer"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "maxCount": {
-                    "description": "Количество коров с максимальным индексом",
-                    "type": "integer"
-                },
-                "maxCowIds": {
-                    "description": "ID коров с максимальным значением индекса",
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    }
-                },
-                "maxIndex": {
-                    "description": "Значение максимального индекса",
-                    "type": "number"
-                },
-                "minCount": {
-                    "description": "Количество коров с минимальным индексом",
-                    "type": "integer"
-                },
-                "minCowIds": {
-                    "description": "ID коров с минимальным значением индекса",
-                    "type": "array",
-                    "items": {
-                        "type": "number"
-                    }
-                },
-                "minIndex": {
-                    "description": "Значение минимального индекса",
-                    "type": "number"
-                },
-                "region": {
-                    "$ref": "#/definitions/models.Region"
-                },
-                "regionID": {
-                    "description": "не null, если статистика собрана по региону",
-                    "type": "integer"
-                }
-            }
-        },
         "analitics.byDistrictStatistics": {
             "type": "object",
             "properties": {
@@ -2568,10 +2305,6 @@ const docTemplate = `{
                         }
                     ]
                 },
-                "ebvGeneralValueRegion": {
-                    "description": "Общая оценка EBV по региону",
-                    "type": "number"
-                },
                 "events": {
                     "description": "Вет события",
                     "type": "array",
@@ -2679,7 +2412,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "checkDate": {
-                    "description": "Дата контрольной дойки",
+                    "description": "Дата конрольной дойки",
                     "allOf": [
                         {
                             "$ref": "#/definitions/models.DateOnly"
@@ -2687,7 +2420,7 @@ const docTemplate = `{
                     ]
                 },
                 "dryMatter": {
-                    "description": "Сухой материал",
+                    "description": "сухой материал",
                     "type": "number"
                 },
                 "fat": {
@@ -2719,7 +2452,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "probeNumber": {
-                    "description": "Номер пробы",
+                    "description": "номер пробы",
                     "type": "integer"
                 },
                 "protein": {
@@ -2728,7 +2461,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "somaticNucCount": {
-                    "description": "Количество соматических клеток",
+                    "description": "количество соматических клеток",
                     "type": "number"
                 }
             }
@@ -2762,7 +2495,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "birthMethod": {
-                    "description": "Способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
+                    "description": "способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
                     "type": "string"
                 },
                 "breedId": {
@@ -2827,6 +2560,16 @@ const docTemplate = `{
                 "genetic": {
                     "$ref": "#/definitions/models.Genetic"
                 },
+                "gradeHozId": {
+                    "description": "оценка по хозяйству",
+                    "type": "integer",
+                    "example": 1
+                },
+                "gradeRegionId": {
+                    "description": "оценка по региону",
+                    "type": "integer",
+                    "example": 1
+                },
                 "holding": {
                     "$ref": "#/definitions/models.Farm"
                 },
@@ -2844,7 +2587,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "identificationNumber": {
-                    "description": "Он все-таки есть! Это какой-то не российский номер коровы",
+                    "description": "он все-таки есть! это какой-то не российский номер коровы",
                     "type": "string"
                 },
                 "inbrindingCoeffByFamily": {
@@ -2967,14 +2710,6 @@ const docTemplate = `{
                     "type": "string",
                     "example": "2800-01-21"
                 },
-                "ebvGeneralValueRegionFrom": {
-                    "type": "number",
-                    "example": 3.14
-                },
-                "ebvGeneralValueRegionTo": {
-                    "type": "number",
-                    "example": 3.14
-                },
                 "entitiesOnPage": {
                     "description": "Количество сущностей на странице",
                     "type": "integer",
@@ -3040,13 +2775,6 @@ const docTemplate = `{
                     "type": "number",
                     "default": 3.14
                 },
-                "includeOnly": {
-                    "description": "ID коров, которые могут быть в выдаче фильтра. Пустой = ВСЕ коровы",
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
                 "inseminationDateFrom": {
                     "description": "Exterior             *float64 ` + "`" + `default:\"3.14\" validate:\"optional\"` + "`" + `       // Фильтр по оценке экстерьера коровы, будет переработан",
                     "type": "string",
@@ -3094,7 +2822,7 @@ const docTemplate = `{
                     }
                 },
                 "orderBy": {
-                    "description": "Может принимать следующие и только следующие значения: null, \"RSHN\", \"InventoryNumber\", \"Name\", \"HozName\", \"BirthDate\", \"GeneralEbvRegion\"",
+                    "description": "Может принимать следующие и только следующие значения: null, \"RSHN\", \"InventoryNumber\", \"Name\", \"HozName\", \"BirthDate\"",
                     "type": "string"
                 },
                 "orderByDesc": {
@@ -3124,35 +2852,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.AdditionalInfo": {
-            "type": "object",
-            "properties": {
-                "additionalProperty1Measure": {
-                    "description": "Дополнительный параметр 1 (значение в единицах измерения)",
-                    "type": "string"
-                },
-                "additionalProperty1Name": {
-                    "description": "Дополнительный параметр 1 (название)",
-                    "type": "string"
-                },
-                "additionalProperty1Value": {
-                    "description": "Дополнительный параметр 1 (значение в баллах)",
-                    "type": "string"
-                },
-                "additionalProperty2Measure": {
-                    "description": "Дополнительный параметр 2 (значение в единицах измерения)",
-                    "type": "string"
-                },
-                "additionalProperty2Name": {
-                    "description": "Дополнительный параметр 2 (название)",
-                    "type": "string"
-                },
-                "additionalProperty2Value": {
-                    "description": "Дополнительный параметр 2 (значение в баллах)",
-                    "type": "string"
-                }
-            }
-        },
         "models.Breed": {
             "type": "object",
             "properties": {
@@ -3172,7 +2871,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "checkDate": {
-                    "description": "Дата контрольной дойки",
+                    "description": "Дата конрольной дойки",
                     "allOf": [
                         {
                             "$ref": "#/definitions/models.DateOnly"
@@ -3180,7 +2879,7 @@ const docTemplate = `{
                     ]
                 },
                 "dryMatter": {
-                    "description": "Сухой материал",
+                    "description": "сухой материал",
                     "type": "number"
                 },
                 "fat": {
@@ -3204,7 +2903,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "probeNumber": {
-                    "description": "Номер пробы",
+                    "description": "номер пробы",
                     "type": "integer"
                 },
                 "protein": {
@@ -3213,7 +2912,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "somaticNucCount": {
-                    "description": "Количество соматических клеток",
+                    "description": "количество соматических клеток",
                     "type": "number"
                 }
             }
@@ -3247,7 +2946,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "birthMethod": {
-                    "description": "Способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
+                    "description": "способ зачатия: клон, эмбрион, искусственное осеменени, естественное осеменение",
                     "type": "string"
                 },
                 "breedId": {
@@ -3296,6 +2995,16 @@ const docTemplate = `{
                 "genetic": {
                     "$ref": "#/definitions/models.Genetic"
                 },
+                "gradeHozId": {
+                    "description": "оценка по хозяйству",
+                    "type": "integer",
+                    "example": 1
+                },
+                "gradeRegionId": {
+                    "description": "оценка по региону",
+                    "type": "integer",
+                    "example": 1
+                },
                 "holding": {
                     "$ref": "#/definitions/models.Farm"
                 },
@@ -3309,7 +3018,7 @@ const docTemplate = `{
                     "example": 1
                 },
                 "identificationNumber": {
-                    "description": "Он все-таки есть! Это какой-то не российский номер коровы",
+                    "description": "он все-таки есть! это какой-то не российский номер коровы",
                     "type": "string"
                 },
                 "inbrindingCoeffByFamily": {
@@ -3440,56 +3149,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "path": {
-                    "description": "Путь к документу относительно genmilk.ru/api/static/documents",
-                    "type": "string"
-                }
-            }
-        },
-        "models.DownSides": {
-            "type": "object",
-            "properties": {
-                "bodyCount": {
-                    "description": "Туловище",
-                    "type": "number"
-                },
-                "bodyDescription": {
-                    "description": "Список недостатков туловища разделитель: \"/\"",
-                    "type": "string"
-                },
-                "limbsCount": {
-                    "description": "Конечности",
-                    "type": "number"
-                },
-                "limbsDescription": {
-                    "description": "Список недостатков конечностей разделитель: \"/\"",
-                    "type": "string"
-                },
-                "milkTypeCount": {
-                    "description": "Молочный тип",
-                    "type": "number"
-                },
-                "milkTypeDescription": {
-                    "description": "Список недостатков Молочного типа. Разделитель: \"/\"",
-                    "type": "string"
-                },
-                "sacrumCount": {
-                    "description": "Крестец",
-                    "type": "number"
-                },
-                "sacrumDescription": {
-                    "description": "Список недостатков крестца разделитель: \"/\"",
-                    "type": "string"
-                },
-                "summary": {
-                    "description": "Сводные данные о недостатках разделитель \"/\"",
-                    "type": "string"
-                },
-                "udderCount": {
-                    "description": "Вымя",
-                    "type": "number"
-                },
-                "udderDescription": {
-                    "description": "Список недостатков вымени разделитель: \"/\"",
+                    "description": "путь к документу относительно genmilk.ru/api/static/documents",
                     "type": "string"
                 }
             }
@@ -3498,11 +3158,11 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "comment1": {
-                    "description": "Комментарий 1 (по всей видимости сюда что-то пришит врач)",
+                    "description": "Коментарий 1 (по всей видиости сюда что-то пришет врач)",
                     "type": "string"
                 },
                 "comment2": {
-                    "description": "Комментарий 2",
+                    "description": "Коментарий 2",
                     "type": "string"
                 },
                 "cowId": {
@@ -3510,7 +3170,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "dataResourse": {
-                    "description": "Источник данных",
+                    "description": "источник данных",
                     "type": "string"
                 },
                 "date": {
@@ -3522,7 +3182,7 @@ const docTemplate = `{
                     ]
                 },
                 "daysFromLactation": {
-                    "description": "Дни от начала лактации",
+                    "description": "дни от начала лактации",
                     "type": "integer"
                 },
                 "eventType": {
@@ -3532,18 +3192,18 @@ const docTemplate = `{
                     "$ref": "#/definitions/models.EventType"
                 },
                 "eventType1Id": {
-                    "description": "Стандартизированная название события",
+                    "description": "стандартизированная название события",
                     "type": "integer"
                 },
                 "eventType2": {
                     "$ref": "#/definitions/models.EventType"
                 },
                 "eventType2Id": {
-                    "description": "Стандартизированное разновидность события",
+                    "description": "стандартизированное разновидность события",
                     "type": "integer"
                 },
                 "eventTypeId": {
-                    "description": "Стандартизированная группа события",
+                    "description": "стандартизированная группа события",
                     "type": "integer"
                 },
                 "id": {
@@ -3555,7 +3215,7 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "code": {
-                    "description": "Код группы или разновидности или названия события",
+                    "description": "код группы или разновидности или названия события",
                     "type": "integer"
                 },
                 "id": {
@@ -3579,186 +3239,114 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "acrumLength": {
-                    "description": "Длина крестца (9 баллов)",
                     "type": "number"
                 },
-                "additionalInfo": {
-                    "description": "Доп. признаки",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/models.AdditionalInfo"
-                        }
-                    ]
-                },
-                "assessmentDate": {
-                    "$ref": "#/definitions/models.DateOnly"
-                },
                 "bodyDepth": {
-                    "description": "Глубина туловища (9 баллов)",
                     "type": "number"
                 },
                 "bodyStructure": {
-                    "description": "Туловище (100 баллов)",
                     "type": "number"
                 },
                 "boneQHockJointRear": {
-                    "description": "Качество костяка (9 баллов)",
                     "type": "number"
                 },
                 "centerLigamentDepth": {
-                    "description": "Глубина центральной связки (9 баллов)",
                     "type": "number"
                 },
                 "chestWidth": {
-                    "description": "Ширина груди (9 баллов)",
                     "type": "number"
                 },
                 "conditioning": {
-                    "description": "Упитанность (9 баллов)",
                     "type": "number"
                 },
                 "cowID": {
                     "type": "integer"
                 },
-                "deceptions": {
-                    "description": "Обмускульность (9 баллов)",
-                    "type": "number"
-                },
-                "downSides": {
-                    "description": "Недостатки (пороки)",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/models.DownSides"
-                        }
-                    ]
-                },
                 "exteriorType": {
-                    "description": "Тип телосложения (9 баллов)",
                     "type": "number"
                 },
                 "foreLegPosFront": {
-                    "description": "Постановка передних ног (9 баллов)",
                     "type": "number"
                 },
                 "foreTeatDiameter": {
-                    "description": "Диаметр передних сосков (9 баллов)",
                     "type": "number"
                 },
                 "foreTeatLendth": {
-                    "description": "Длина передних сосков (9 баллов)",
                     "type": "number"
                 },
                 "foreUdderAttach": {
-                    "description": "Прикрепление передних долей вымени (9 баллов)",
                     "type": "number"
                 },
                 "foreUdderPlcRear": {
-                    "description": "Расположение передних сосков (вид сзади) (9 баллов)",
                     "type": "number"
                 },
                 "foreUdderWidth": {
-                    "description": "Ширина передних долей вымени вид спереди (9 баллов)",
                     "type": "number"
                 },
                 "harmonyOfMovement": {
-                    "description": "Гармоничность движения (9 баллов)",
                     "type": "number"
                 },
                 "heightOfUdderAttach": {
-                    "description": "Высота прикрепления задних долей вымени (9 баллов)",
                     "type": "number"
                 },
                 "hindLegPosRead": {
-                    "description": "Постановка задних ног, вид сзади (9 баллов)",
                     "type": "number"
                 },
                 "hindLegPosSide": {
-                    "description": "Постановка задних ног, вид сбоку (9 баллов)",
                     "type": "number"
                 },
                 "hindTeatPlc": {
-                    "description": "Расположение задних сосков (вид сзади) \t(9 баллов)",
                     "type": "number"
                 },
                 "hindUdderWidth": {
-                    "description": "Ширина задних долей вымени (9 баллов)",
                     "type": "number"
                 },
                 "hoofAngle": {
-                    "description": "Угол наклона копытца (9 баллов)",
                     "type": "number"
                 },
                 "id": {
                     "type": "integer"
                 },
                 "limbs": {
-                    "description": "Конечности (100 баллов)",
                     "type": "number"
                 },
-                "measures": {
-                    "description": "Замеры параметров экстерьера",
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/models.Measures"
-                        }
-                    ]
-                },
                 "milkStrength": {
-                    "description": "Молочный тип (100 баллов)",
                     "type": "number"
                 },
                 "pelvicWidth": {
-                    "description": "Ширина таза (9 баллов)",
                     "type": "number"
                 },
                 "picturePath": {
                     "type": "string"
                 },
                 "prominenceOfMilkVeins": {
-                    "description": "Выраженность вен вымени (9 баллов)",
                     "type": "number"
                 },
                 "rating": {
                     "type": "number"
                 },
                 "rearTeatDiameter": {
-                    "description": "Диаметр задних сосков (9 баллов)",
                     "type": "number"
                 },
-                "ribsAngle": {
-                    "description": "Угол наклона ребер (9 баллов)",
-                    "type": "number"
-                },
-                "sacrum": {
-                    "description": "Крестец (100 баллов) до 2025 года, эта оценка называется общий вид",
+                "rearTeatLength": {
                     "type": "number"
                 },
                 "sacrumAngle": {
-                    "description": "Угол наклона крестца (9 баллов)",
                     "type": "number"
                 },
                 "sacrumHeight": {
-                    "description": "Высота в крестце (9 баллов)",
-                    "type": "number"
-                },
-                "sacrumWidth": {
-                    "description": "Ширина крестца (9 баллов)",
                     "type": "number"
                 },
                 "topLine": {
-                    "description": "Линия верха (9 баллов)",
                     "type": "number"
                 },
                 "udder": {
-                    "description": "Вымя (100 баллов)",
                     "type": "number"
                 },
                 "udderBalance": {
-                    "description": "Балланс вымени (9 баллов)",
                     "type": "number"
                 },
                 "udderDepth": {
-                    "description": "Глубина вымени (9 баллов)",
                     "type": "number"
                 }
             }
@@ -3771,7 +3359,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "cowsCount": {
-                    "description": "Количество коров в базе",
+                    "description": "количество коров",
                     "type": "integer"
                 },
                 "description": {
@@ -3783,16 +3371,12 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "email": {
-                    "description": "Эл. почта",
+                    "description": "эл. почта",
                     "type": "string"
                 },
                 "hozNumber": {
-                    "description": "Номер хоз-ва",
+                    "description": "Region   Region ` + "`" + `json:\"-\"` + "`" + `\nRegionId uint",
                     "type": "string"
-                },
-                "hozPercentageInBase": {
-                    "description": "Процент хозяйств в базе",
-                    "type": "number"
                 },
                 "id": {
                     "type": "integer"
@@ -3806,11 +3390,11 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "nameShort": {
-                    "description": "Краткое название хозяйства",
+                    "description": "Краткое название хозйства",
                     "type": "string"
                 },
                 "parrentId": {
-                    "description": "ID управляющего хоз-ва (для хозяйства - холдинг, для фермы - хозяйство)",
+                    "description": "ID более управляющего хоз-ва (для хозяйства - холдинг, для фермы - хозяйство)",
                     "type": "integer"
                 },
                 "phone": {
@@ -3846,7 +3430,7 @@ const docTemplate = `{
                     }
                 },
                 "gtcFilePath": {
-                    "description": "Путь к gtc файлу относительно genmilk.ru/api/static/gtc",
+                    "description": "путь к gtc файлу относительно genmilk.ru/api/static/gtc",
                     "type": "string"
                 },
                 "id": {
@@ -3862,7 +3446,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "resultDate": {
-                    "description": "Дата получения результата",
+                    "description": "Дата получения  результата",
                     "allOf": [
                         {
                             "$ref": "#/definitions/models.DateOnly"
@@ -3932,55 +3516,28 @@ const docTemplate = `{
         "models.Grade": {
             "type": "object",
             "properties": {
-                "cowID": {
-                    "type": "integer"
-                },
                 "ebvFat": {
                     "description": "Оценка жира по EBV",
-                    "type": "number"
-                },
-                "ebvFatReliability": {
-                    "description": "Достоверность расчета оценки жира",
                     "type": "number"
                 },
                 "ebvInsemenation": {
                     "description": "Оценка кратности осеменения по EBV",
                     "type": "number"
                 },
-                "ebvInsemenationReliability": {
-                    "description": "Достоверность расчета оценки кратности осеменения",
-                    "type": "number"
-                },
                 "ebvMilk": {
                     "description": "Оценка удоя по EBV",
-                    "type": "number"
-                },
-                "ebvMilkReliability": {
-                    "description": "Достоверность расчета оценки удоя",
                     "type": "number"
                 },
                 "ebvProtein": {
                     "description": "Оценка белка по EBV",
                     "type": "number"
                 },
-                "ebvProteinReliability": {
-                    "description": "Достоверность расчета оценки белка",
-                    "type": "number"
-                },
-                "ebvService": {
+                "evbService": {
                     "description": "Оценка длительности сервисного периода по EBV",
                     "type": "number"
                 },
-                "ebvServiceReliability": {
-                    "description": "Достоверность расчета оценки сервисного периода",
-                    "type": "number"
-                },
                 "generalValue": {
-                    "description": "Общая оценка по EBV",
-                    "type": "number"
-                },
-                "generalValueReliability": {
-                    "description": "Достоверность расчета общей оценки",
+                    "description": "CowID           uint",
                     "type": "number"
                 },
                 "id": {
@@ -4088,7 +3645,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "days": {
-                    "description": "Количество дней, когда корова дает молоко",
+                    "description": "количество дней, когда корова дает молоко",
                     "type": "integer"
                 },
                 "fat305": {
@@ -4140,71 +3697,6 @@ const docTemplate = `{
                 }
             }
         },
-        "models.Measures": {
-            "type": "object",
-            "properties": {
-                "backNippleDiameter": {
-                    "description": "Диаметр задних сосков (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "backUdderSegmentsLocationHeight": {
-                    "description": "Высота прикрепления задних долей вымени (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "backUdderSegmentsWidth": {
-                    "description": "Ширина задних долей вымени (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "centralLigamentDepth": {
-                    "description": "Глубина центральной связки (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "chestWidth": {
-                    "description": "Ширина груди (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "frontNippleDiameter": {
-                    "description": "Диаметр передних сосков (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "frontNippleLength": {
-                    "description": "Длинна передних сосков (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "frontUdderSegmentsLocation": {
-                    "description": "Прикрепление передних долей вымени (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "hindLegWalkSideView": {
-                    "description": "Поступь задних ног сбоку (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "hoofAngle": {
-                    "description": "Угол копыта (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "sacrumAngle": {
-                    "description": "Угол наклона крестца (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "sacrumHeight": {
-                    "description": "высота в крестце (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "sacrumWidth": {
-                    "description": "ширина в крестце (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "udderBalance": {
-                    "description": "Баланс вымени (Сантиметры или градусы)",
-                    "type": "number"
-                },
-                "udderDepth": {
-                    "description": "Глубина вымени (Сантиметры или градусы)",
-                    "type": "number"
-                }
-            }
-        },
         "models.News": {
             "type": "object",
             "properties": {
@@ -4241,18 +3733,18 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "description": {
-                    "description": "Описание партнера",
+                    "description": "описание партнера",
                     "type": "string"
                 },
                 "email": {
-                    "description": "Эл. почта",
+                    "description": "эл. почта",
                     "type": "string"
                 },
                 "id": {
                     "type": "integer"
                 },
                 "logoPath": {
-                    "description": "Путь к логотипу партнера относительно genmlik.ru/api/static/partners",
+                    "description": "путь к логотипу партнера относительно genmlik.ru/api/static/partners",
                     "type": "string"
                 },
                 "name": {
@@ -4273,7 +3765,7 @@ const docTemplate = `{
                     "default": 1
                 },
                 "name": {
-                    "description": "Название региона",
+                    "description": "название региона",
                     "type": "string",
                     "example": "Усть-Каменский"
                 },
@@ -4284,7 +3776,7 @@ const docTemplate = `{
                     }
                 },
                 "regNum": {
-                    "description": "Номер региона (Архангельская область = 29)",
+                    "description": "номер региона (Архангельская область = 29)",
                     "type": "integer"
                 }
             }
@@ -4296,7 +3788,7 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "name": {
-                    "description": "Название роли",
+                    "description": "название роли",
                     "type": "string"
                 }
             }
@@ -4332,7 +3824,7 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "hozNumber": {
-                    "description": "Номер хоз-ва к которому привязвыается пользователь: либо существует, либо newHoz",
+                    "description": "номер хоз-ва к которому привязвыается пользователь: либо существует, либо newHoz",
                     "type": "string"
                 },
                 "id": {
@@ -4399,7 +3891,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "83.69.249.5",
+	Host:             "genmilk.ru",
 	BasePath:         "/api",
 	Schemes:          []string{},
 	Title:            "GenMilk API",

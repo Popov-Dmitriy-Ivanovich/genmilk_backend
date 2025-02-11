@@ -1,9 +1,8 @@
 package auth
 
 import (
+	"cow_backend/models"
 	"net/http"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"

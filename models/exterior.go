@@ -2,62 +2,50 @@ package models
 
 import (
 	"errors"
-
 	"gorm.io/gorm"
 )
 
 type Exterior struct {
-	ID     uint `gorm:"primaryKey"`
-	CowID  uint `gorm:"index;"`
-	Rating float64
+	ID                    uint `gorm:"primaryKey"`
+	CowID                 uint `gorm:"index;"`
+	Rating                float64
+	ChestWidth            *float64
+	PelvicWidth           *float64
+	SacrumHeight          *float64
+	BodyDepth             *float64
+	ExteriorType          *float64
+	BoneQHockJointRear    *float64
+	SacrumAngle           *float64
+	TopLine               *float64
+	HoofAngle             *float64
+	HindLegPosSide        *float64
+	HindLegPosRead        *float64
+	ForeLegPosFront       *float64
+	UdderDepth            *float64
+	UdderBalance          *float64
+	HeightOfUdderAttach   *float64
+	ForeUdderAttach       *float64
+	ForeUdderPlcRear      *float64
+	HindTeatPlc           *float64
+	ForeTeatLendth        *float64
+	RearTeatLength        *float64
+	ForeTeatDiameter      *float64
+	RearTeatDiameter      *float64
+	CenterLigamentDepth   *float64
+	HarmonyOfMovement     *float64
+	Conditioning          *float64
+	ProminenceOfMilkVeins *float64
 
-	Measures       Measures        `gorm:"constraint:OnUpdate:CASCADE,OnDelete:Cascade;"` // Замеры параметров экстерьера
-	DownSides      *DownSides      `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"` // Недостатки (пороки)
-	AdditionalInfo *AdditionalInfo `gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"` // Доп. признаки
-	AssessmentDate *DateOnly
+	// 100 бальные
+	MilkStrength  *float64
+	BodyStructure *float64
+	Limbs         *float64
+	Udder         *float64
+	// 100 бальные
 
-	BodyDepth    *float64 // Глубина туловища (9 баллов)
-	ChestWidth   *float64 // Ширина груди (9 баллов)
-	ExteriorType *float64 // Тип телосложения (9 баллов)
-
-	RibsAngle   *float64 // Угол наклона ребер (9 баллов)
-	SacrumAngle *float64 // Угол наклона крестца (9 баллов)
-
-	SacrumHeight    *float64 // Высота в крестце (9 баллов)
-	SacrumWidth     *float64 // Ширина крестца (9 баллов)
-	Conditioning    *float64 // Упитанность (9 баллов)
-	ForeLegPosFront *float64 // Постановка передних ног (9 баллов)
-	HindLegPosSide  *float64 // Постановка задних ног, вид сбоку (9 баллов)
-	HindLegPosRead  *float64 // Постановка задних ног, вид сзади (9 баллов)
-	HoofAngle       *float64 // Угол наклона копытца (9 баллов)
-
-	HarmonyOfMovement     *float64 // Гармоничность движения (9 баллов)
-	UdderDepth            *float64 // Глубина вымени (9 баллов)
-	ForeUdderAttach       *float64 // Прикрепление передних долей вымени (9 баллов)
-	HeightOfUdderAttach   *float64 // Высота прикрепления задних долей вымени (9 баллов)
-	HindUdderWidth        *float64 // Ширина задних долей вымени (9 баллов)
-	CenterLigamentDepth   *float64 // Глубина центральной связки (9 баллов)
-	ForeUdderPlcRear      *float64 // Расположение передних сосков (вид сзади) (9 баллов)
-	HindTeatPlc           *float64 // Расположение задних сосков (вид сзади) 	(9 баллов)
-	ForeTeatLendth        *float64 // Длина передних сосков (9 баллов)
-	BoneQHockJointRear    *float64 // Качество костяка (9 баллов)
-	Deceptions            *float64 // Обмускульность (9 баллов)
-	AcrumLength           *float64 // Длина крестца (9 баллов)
-	TopLine               *float64 // Линия верха (9 баллов)
-	UdderBalance          *float64 // Балланс вымени (9 баллов)
-	ForeTeatDiameter      *float64 // Диаметр передних сосков (9 баллов)
-	RearTeatDiameter      *float64 // Диаметр задних сосков (9 баллов)
-	ProminenceOfMilkVeins *float64 // Выраженность вен вымени (9 баллов)
-
-	PelvicWidth *float64 // Ширина таза (9 баллов)
-
-	ForeUdderWidth *float64 // Ширина передних долей вымени вид спереди (9 баллов)
-
-	MilkStrength  *float64 // Молочный тип (100 баллов)
-	BodyStructure *float64 // Туловище (100 баллов)
-	Limbs         *float64 // Конечности (100 баллов)
-	Udder         *float64 // Вымя (100 баллов)
-	Sacrum        *float64 // Крестец (100 баллов) до 2025 года, эта оценка называется общий вид
+	ForeUdderWidth *float64
+	HindUdderWidth *float64
+	AcrumLength    *float64
 
 	PicturePath *string
 }
@@ -134,6 +122,9 @@ func (e *Exterior) Validate() error {
 	}
 	if e.ForeTeatLendth != nil && (*e.ForeTeatLendth < 0 || *e.ForeTeatLendth > 10) {
 		return errors.New("foreTeatLength must be between 0 and 10")
+	}
+	if e.RearTeatLength != nil && (*e.RearTeatLength < 0 || *e.RearTeatLength > 10) {
+		return errors.New("rearTeatLength must be between 0 and 10")
 	}
 	if e.ForeTeatDiameter != nil && (*e.ForeTeatDiameter < 0 || *e.ForeTeatDiameter > 10) {
 		return errors.New("foreTeatDiameter must be between 0 and 10")

@@ -1,8 +1,7 @@
 package load
 
 import (
-	"context"
-	"encoding/csv"
+	"cow_backend/models"
 	"errors"
 	"io"
 	"log"
@@ -11,10 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
-
 	"github.com/gin-gonic/gin"
-	"github.com/segmentio/kafka-go"
 	"gorm.io/gorm"
 )
 
@@ -90,7 +86,7 @@ var lactationRecordParsers = map[string]func(*lactationRecord, []string) error{
 
 	INSEMENATION_DATE_COL: func(lr *lactationRecord, record []string) error {
 		dateStr := record[lr.HeaderIndexes[INSEMENATION_DATE_COL]]
-		date, err := time.Parse(time.DateOnly, dateStr)
+		date, err := ParseTime(dateStr)
 		if err != nil {
 			return err
 		}
@@ -112,7 +108,7 @@ var lactationRecordParsers = map[string]func(*lactationRecord, []string) error{
 
 	CALVING_DATE_COL: func(lr *lactationRecord, record []string) error {
 		dateStr := record[lr.HeaderIndexes[CALVING_DATE_COL]]
-		date, err := time.Parse(time.DateOnly, dateStr)
+		date, err := ParseTime(dateStr)
 		if err != nil {
 			return err
 		}
@@ -355,8 +351,7 @@ func (l *Load) Lactation() func(*gin.Context) {
 			return
 		}
 		defer file.Close()
-		csvReader := csv.NewReader(file)
-		header, err := csvReader.Read()
+		csvReader, header, err := GetCsvReader(file)
 		if err != nil {
 			c.JSON(422, err.Error())
 			return
@@ -372,29 +367,6 @@ func (l *Load) Lactation() func(*gin.Context) {
 		loadChannel := make(chan loaderData)
 		MakeLoadingPool(loadChannel, LoadRecordToDb[models.Lactation])
 		log.Printf("[INFO] START PARSING CSV FILE")
-
-		w := &kafka.Writer{
-			Addr:                   kafka.TCP("kafka:9092"),
-			Topic:                  "LactationLoadRequest",
-			AllowAutoTopicCreation: true,
-		}
-		messages := []kafka.Message{
-			{
-				Key:   []byte("UserID"),
-				Value: []byte("File Path"),
-			},
-		}
-
-		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
-
-		// attempt to create topic prior to publishing the message
-		err = w.WriteMessages(ctx, messages...)
-
-		if err != nil {
-			log.Printf("unexpected error %v", err)
-		}
-
 		// do some database operations in the transaction (use 'tx' from this point, not 'db')
 		for record, err := csvReader.Read(); err != io.EOF; record, err = csvReader.Read() {
 			if err != nil {

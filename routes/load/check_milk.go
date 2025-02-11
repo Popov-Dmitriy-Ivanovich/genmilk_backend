@@ -1,15 +1,13 @@
 package load
 
 import (
-	"encoding/csv"
+	"cow_backend/models"
 	"errors"
 	"io"
 	"os"
 	"strconv"
 	"sync"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -51,7 +49,7 @@ var cmRecordParsers = map[string]func(*cmRecord, []string) error{
 
 	CM_LACTATION_DATE_COL: func(cmr *cmRecord, record []string) error {
 		dateStr := record[cmr.HeaderIndexes[CM_LACTATION_DATE_COL]]
-		date, err := time.Parse(time.DateOnly, dateStr)
+		date, err := ParseTime(dateStr)
 		if err != nil {
 			return err
 		}
@@ -144,7 +142,7 @@ var cmRecordParsers = map[string]func(*cmRecord, []string) error{
 	},
 	CM_CHECK_DATE_COL: func(cmr *cmRecord, record []string) error {
 		dateStr := record[cmr.HeaderIndexes[CM_CHECK_DATE_COL]]
-		date, err := time.Parse(time.DateOnly, dateStr)
+		date, err := ParseTime(dateStr)
 		if err != nil {
 			return err
 		}
@@ -248,8 +246,7 @@ func (l *Load) CheckMilk() func(*gin.Context) {
 			return
 		}
 		defer file.Close()
-		csvReader := csv.NewReader(file)
-		header, err := csvReader.Read()
+		csvReader, header, err := GetCsvReader(file)
 		if err != nil {
 			c.JSON(422, err.Error())
 			return

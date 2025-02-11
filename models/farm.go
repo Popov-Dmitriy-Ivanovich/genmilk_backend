@@ -9,23 +9,24 @@ import (
 type Farm struct {
 	ID uint `gorm:"primaryKey"`
 
+	// Region   Region `json:"-"`
+	// RegionId uint
 	HozNumber  *string  `gorm:"index"` // Номер хоз-ва
 	District   District `json:"-" gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
 	DistrictId uint     // ID района, в котором находится хозяйство
 	Parrent    *Farm    `json:"-" gorm:"constraint:OnUpdate:CASCADE,OnDelete:RESTRICT;"`
-	ParrentId  *uint    // ID управляющего хоз-ва (для хозяйства - холдинг, для фермы - хозяйство)
+	ParrentId  *uint    // ID более управляющего хоз-ва (для хозяйства - холдинг, для фермы - хозяйство)
 
 	Type      uint    // Тип: хозяйство, ферма, холдинг
 	Name      string  // Название хозяйства
 	NameShort string  // Краткое название хозяйства
 	Inn       *string // ИНН
 
-	Address             string   // Адрес
-	Phone               *string  // телефон
-	Email               *string  // Эл. почта
-	Description         *string  // описание
-	CowsCount           *uint    // Количество коров в базе
-	HozPercentageInBase *float64 // Процент хозяйств в базе
+	Address     string  // Адрес
+	Phone       *string // телефон
+	Email       *string // Эл. почта
+	Description *string // описание
+	CowsCount   *uint   // Количество коров
 }
 
 func (f *Farm) Validate() error {

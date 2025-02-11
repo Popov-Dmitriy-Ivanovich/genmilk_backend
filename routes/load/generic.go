@@ -1,11 +1,10 @@
 package load
 
 import (
+	"cow_backend/models"
 	"errors"
 	"log"
 	"sync"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"gorm.io/gorm"
 )

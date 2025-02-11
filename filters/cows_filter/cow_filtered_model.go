@@ -1,7 +1,7 @@
 package cows_filter
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
+	"cow_backend/filters"
 
 	"gorm.io/gorm"
 )

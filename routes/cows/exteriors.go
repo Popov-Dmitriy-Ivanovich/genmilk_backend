@@ -1,7 +1,7 @@
 package cows
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	"cow_backend/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,12 +20,7 @@ func (f *Cows) Exterior() func(*gin.Context) {
 		id := c.Param("id")
 		cow := models.Cow{}
 		db := models.GetDb()
-		if err := db.
-			Preload("Exterior").
-			Preload("Exterior.Measures").
-			Preload("Exterior.DownSides").
-			Preload("Exterior.AdditionalInfo").
-			First(&cow, id).Error; err != nil {
+		if err := db.Preload("Exterior").First(&cow, id).Error; err != nil {
 			c.JSON(500, err.Error())
 			return
 		}

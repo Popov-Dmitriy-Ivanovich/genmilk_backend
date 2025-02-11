@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/routes/admin"
+	"cow_backend/routes/admin"
 
 	"github.com/gin-gonic/gin"
 )

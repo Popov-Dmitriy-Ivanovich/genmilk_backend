@@ -1,10 +1,9 @@
 package cows_filter
 
 import (
+	"cow_backend/filters"
 	"errors"
 	"strconv"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters"
 )
 
 type LiveInHolding struct {

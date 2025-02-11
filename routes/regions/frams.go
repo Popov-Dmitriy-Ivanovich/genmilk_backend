@@ -1,7 +1,7 @@
 package regions
 
 import (
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	"cow_backend/models"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +11,7 @@ import (
 //	@Summary      Get farm by region id
 //	@Description  Возращает все фермы в регионе (Данные представлены как словарь с единственным ключем "farms")
 //
-// @Tags         zzDeprecated
+// @Tags         Regions
 // @Param        id    path     int  true  "id of region"
 // @Produce      json
 // @Success      200  {array}   models.Farm

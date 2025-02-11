@@ -1,12 +1,11 @@
 package user_create
 
 import (
+	"cow_backend/models"
 	"fmt"
 	"net/smtp"
 	"os"
 	"time"
-
-	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
