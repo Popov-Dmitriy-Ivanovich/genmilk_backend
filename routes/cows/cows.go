@@ -23,5 +23,6 @@ func (c *Cows) WriteRoutes(rg *gin.RouterGroup) {
 	authGroup := apiGroup.Group("")
 	authGroup.Use(auth.AuthMiddleware(auth.Farmer, auth.RegionalOff, auth.FederalOff))
 	authGroup.POST("/filter", c.Filter())
+	authGroup.POST("/filterCSV", c.SendCSV())
 	apiGroup.GET("/:id/documents", c.Document())
 }
