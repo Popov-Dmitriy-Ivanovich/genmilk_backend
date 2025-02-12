@@ -18,7 +18,7 @@ import (
 // @Param        filter    body     cows_filter.CowsFilter  true  "applied filters"
 // @Accept       json
 // @Produce      json
-// @Success      200  {array}   map[string]FilterSerializedCow
+// @Success      200  {array}   string
 // @Failure      422  {object}  string
 // @Failure      500  {object}  string
 // @Router       /cows/filterExcel [post]
