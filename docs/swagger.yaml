@@ -2307,6 +2307,40 @@ paths:
       summary: Get filtered list of cows
       tags:
       - Cows
+  /cows/filterCSV:
+    post:
+      consumes:
+      - application/json
+      description: |-
+        Возращает словарь с двумя ключами "N", "LST". По ключу "N" - общее кол-во найденных коров и их характеристики,
+        по ключу "LST" - путь к файлу csv в директории ./static/csv/
+      parameters:
+      - description: applied filters
+        in: body
+        name: filter
+        required: true
+        schema:
+          $ref: '#/definitions/cows_filter.CowsFilter'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+        "422":
+          description: Unprocessable Entity
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Get csv filtered list of cows
+      tags:
+      - Cows
   /cows/filterExcel:
     post:
       consumes:
@@ -2328,9 +2362,7 @@ paths:
           description: OK
           schema:
             items:
-              additionalProperties:
-                $ref: '#/definitions/cows.FilterSerializedCow'
-              type: object
+              type: string
             type: array
         "422":
           description: Unprocessable Entity
