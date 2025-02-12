@@ -1,10 +1,11 @@
 package cows
 
 import (
-	"cow_backend/models"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 )
 
 func TestToExcelOld(t *testing.T) {
@@ -22,7 +23,7 @@ func TestToExcelOld(t *testing.T) {
 	date := models.DateOnly{Time: time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)}
 	coef := 3.14
 	isTrue := true
-
+	
 	tests := []FilterSerializedCow{
 		{
 			ID:                        123,
