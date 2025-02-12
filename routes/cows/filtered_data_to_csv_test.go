@@ -1,19 +1,18 @@
 package cows
 
 import (
-	//"cow_backend/models"
 	"os"
 	"testing"
 	"time"
 
 	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
+	// ".../models"
 )
-
-func TestToExcelOld(t *testing.T) {
+func TestToCSVFile(t *testing.T) {
 	// Тестовый путь
-	testPathToExcelFile := "./static/excel/"
+	testPathToCSVFile := "./static/csv/"
 	forDeleteTestPath := "./static"
-
+	
 	Name := "Буренка"
 	farm := "ООО Аурус"
 	number := "123"
@@ -24,7 +23,7 @@ func TestToExcelOld(t *testing.T) {
 	date := models.DateOnly{Time: time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)}
 	coef := 3.14
 	isTrue := true
-
+	
 	tests := []FilterSerializedCow{
 		{
 			ID:                        123,
@@ -123,7 +122,7 @@ func TestToExcelOld(t *testing.T) {
 			CreatedAt:   nil,
 		},
 	}
-	err := os.MkdirAll(testPathToExcelFile, 0777)
+	err := os.MkdirAll(testPathToCSVFile, 0777)
 	if err != nil {
 		t.Fatalf("Ошибка создания директории: %v", err)
 	}
@@ -132,7 +131,7 @@ func TestToExcelOld(t *testing.T) {
 	// Формируем путь к тестовому файлу
 
 	t.Run("test", func(t *testing.T) {
-		filepath, err := ToExcelOld(tests)
+		filepath, err := ToCSVFile(tests)
 		if (err != nil) == true {
 			t.Errorf("ошибка: %v", err)
 		}
@@ -146,5 +145,4 @@ func TestToExcelOld(t *testing.T) {
 		}
 
 	})
-
 }
