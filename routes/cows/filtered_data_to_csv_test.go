@@ -1,6 +1,7 @@
 package cows
 
 import (
+	"math/rand"
 	"os"
 	"testing"
 	"time"
@@ -126,12 +127,24 @@ func TestToCSVFile(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Ошибка создания директории: %v", err)
 	}
+	
 	defer os.RemoveAll(forDeleteTestPath)
 
 	// Формируем путь к тестовому файлу
 
 	t.Run("test", func(t *testing.T) {
-		filepath, err := ToCSVFile(tests)
+		var b []bool = make([]bool, 23)
+		for i:=0; i<len(b); i++ {
+			b[i] = true
+		}
+		// t.Log(len(b), b[:7])
+		var idSelecs = make([]uint64, len(tests))
+		for i:=0; i<len(tests); i++ {
+			rand.Seed(time.Now().UnixNano()) // Инициализация генератора
+			randomValue := uint64(rand.Uint64()) // Генерация случайного uint64
+			idSelecs[i] = randomValue
+		}
+		filepath, err := ToCSVFile(tests, idSelecs, b)
 		if (err != nil) == true {
 			t.Errorf("ошибка: %v", err)
 		}
