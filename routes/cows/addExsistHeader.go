@@ -12,6 +12,7 @@ func addExistsHeaderToFile(filter *cows_filter.CowsFilter) []bool {
 	var arrExistOfHeaders []bool = []bool{}
 
 	// Обязательные поля
+	// arrExistOfHeaders = append(arrExistOfHeaders, true) // ID
 	arrExistOfHeaders = append(arrExistOfHeaders, true) // Поле РСХН номер
 	arrExistOfHeaders = append(arrExistOfHeaders, true) // Поле InventoryNumber
 	arrExistOfHeaders = append(arrExistOfHeaders, true) // Name
