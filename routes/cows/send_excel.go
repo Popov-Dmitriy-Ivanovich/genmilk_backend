@@ -10,6 +10,11 @@ import (
 	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
 	"github.com/gin-gonic/gin"
 )
+
+
+
+
+
 // Filter
 // @Summary      Get excel filtered list of cows
 // @Description  Возращает словарь с двумя ключами "N", "LST". По ключу "N" - общее кол-во найденных коров и их характеристики,
@@ -81,7 +86,7 @@ func (c *Cows) SendExcel() func(*gin.Context) {
 		}
 
 		db := models.GetDb()
-		query := db.Model(&models.Cow{}).Preload("FarmGroup").Preload("Genetic").Where("approved <> -1")
+		query := db.Model(&models.Cow{}).Preload("FarmGroup").Preload("Genetic").Where("approved <> -1") 
 		if nQuery, err := AddFiltersToQuery(bodyData, query); err != nil {
 			c.JSON(422, err.Error())
 			return
@@ -91,7 +96,7 @@ func (c *Cows) SendExcel() func(*gin.Context) {
 		// ====================================================================================================
 		// ======================================= PAGINATION =================================================
 		// ====================================================================================================
-		recordsPerPage := uint64(50)
+		recordsPerPage := uint64(100)
 		pageNumber := uint64(1)
 		if bodyData.EntitiesOnPage != nil {
 			recordsPerPage = uint64(*bodyData.EntitiesOnPage)
@@ -115,13 +120,16 @@ func (c *Cows) SendExcel() func(*gin.Context) {
 			c.JSON(500, err.Error())
 			return
 		}
-
+		
+		idSelecs := []uint64{}
 		fsc := make([]FilterSerializedCow, 0, len(dbCows))
 		for _, c := range dbCows {
+			idSelecs = append(idSelecs, *c.SelecsNumber)
 			fsc = append(fsc, serializeByFilter(&c, &bodyData))
 		}
 
-		filePath, err := ToExcelOld(fsc)
+		hw := addExistsHeaderToFile(&bodyData) // Задаем поля котрые будут в финальной таблице
+		filePath, err := ToExcelOld(fsc, idSelecs, hw)
 		if err != nil {
 			c.JSON(500, err.Error())
 			return

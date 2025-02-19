@@ -91,7 +91,7 @@ func (c *Cows) SendCSV() func(*gin.Context) {
 		// ====================================================================================================
 		// ======================================= PAGINATION =================================================
 		// ====================================================================================================
-		recordsPerPage := uint64(50)
+		recordsPerPage := uint64(100)
 		pageNumber := uint64(1)
 		if bodyData.EntitiesOnPage != nil {
 			recordsPerPage = uint64(*bodyData.EntitiesOnPage)
@@ -116,12 +116,15 @@ func (c *Cows) SendCSV() func(*gin.Context) {
 			return
 		}
 
+		idSelecs := []uint64{}
 		fsc := make([]FilterSerializedCow, 0, len(dbCows))
 		for _, c := range dbCows {
+			idSelecs = append(idSelecs, *c.SelecsNumber)
 			fsc = append(fsc, serializeByFilter(&c, &bodyData))
 		}
-
-		filePath, err := ToCSVFile(fsc)
+		
+		hw := addExistsHeaderToFile(&bodyData) // Задаем поля котрые будут в финальной таблице
+		filePath, err := ToCSVFile(fsc, idSelecs, hw)
 		if err != nil {
 			c.JSON(500, err.Error())
 			return

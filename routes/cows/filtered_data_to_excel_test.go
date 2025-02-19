@@ -1,6 +1,7 @@
 package cows
 
 import (
+	"math/rand"
 	"os"
 	"testing"
 	"time"
@@ -19,8 +20,8 @@ func TestToExcelOld(t *testing.T) {
 	invNumber := "321"
 	breed := "Какая-нибудь порода"
 	sex := "Корова"
-	now := time.Now()
-	date := models.DateOnly{Time: time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)}
+	// now := time.Now()
+	date := models.DateOnly{Time: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)}
 	coef := 3.14
 	isTrue := true
 	
@@ -126,12 +127,25 @@ func TestToExcelOld(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Ошибка создания директории: %v", err)
 	}
+	// _ = testPathToExcelFile
+	// _ = forDeleteTestPath
 	defer os.RemoveAll(forDeleteTestPath)
 
 	// Формируем путь к тестовому файлу
 
 	t.Run("test", func(t *testing.T) {
-		filepath, err := ToExcelOld(tests)
+		var b []bool = make([]bool, 23)
+		for i:=0; i<len(b); i++ {
+			b[i] = true
+		}
+		// t.Log(len(b), b[:7])
+		var idSelecs = make([]uint64, len(tests))
+		for i:=0; i<len(tests); i++ {
+			rand.Seed(time.Now().UnixNano()) // Инициализация генератора
+			randomValue := uint64(rand.Uint64()) // Генерация случайного uint64
+			idSelecs[i] = randomValue
+		}
+		filepath, err := ToExcelOld(tests, idSelecs,b)
 		if (err != nil) == true {
 			t.Errorf("ошибка: %v", err)
 		}
