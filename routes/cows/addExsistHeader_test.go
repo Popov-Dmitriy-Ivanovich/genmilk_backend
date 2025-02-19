@@ -37,7 +37,7 @@ func Test_addExistsHeaderToFile(t *testing.T) {
 			ExteriorFrom: nil,
 			ExteriorTo: nil,
 			HasAnyIllnes: nil,
-			HozId: nil,
+			HozId: &ep,
 			IllDateFrom: nil,
 			IllDateTo: nil,
 			InbrindingCoeffByFamilyFrom: nil,
@@ -75,7 +75,7 @@ func Test_addExistsHeaderToFile(t *testing.T) {
 			ExteriorFrom: nil,
 			ExteriorTo: nil,
 			HasAnyIllnes: nil,
-			HozId: nil,
+			HozId: &ep,
 			IllDateFrom: nil,
 			IllDateTo: nil,
 			InbrindingCoeffByFamilyFrom: nil,
@@ -111,8 +111,8 @@ func Test_addExistsHeaderToFile(t *testing.T) {
 			}
 			if got[ctrOfGotArr] {
 				tempHeader = append(tempHeader, tempT.Field(i).Name)
-				ctrOfGotArr++
 			}
+			ctrOfGotArr++
 
 		}
 		t.Log(tempHeader)

@@ -47,6 +47,11 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		}
 	}
 
+	// dateStyle, err := f.NewStyle(&excelize.Style{NumFmt: 165})
+	// if err != nil {
+	// 	return "", err
+	// }
+
 	// Записываем данные
 	for row, data := range fsc {
 		colNum := 1
@@ -59,7 +64,7 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		// Запись Id Селекса
 		Incr()
 		if SelecsId[row] != 0 {
-			if err = f.SetCellValue(ListName, cellName, SelecsId[row]); err != nil {
+			if err = f.SetCellInt(ListName, cellName, int(SelecsId[row])); err != nil {
 				return "", err
 			} else {
 				Incr()
@@ -129,6 +134,7 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		}	
 		if !data.BirthDate.Time.IsZero() {
 			if err = f.SetCellValue(ListName, cellName, data.BirthDate.Time); err != nil {
+				// f.SetCellStyle(ListName, cellName, cellName, dateStyle)
 				return "", err
 			} else {
 				Incr()
@@ -140,15 +146,32 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 				Incr()
 			}
 		}
-		if err = f.SetCellValue(ListName, cellName, data.Genotyped); err != nil {
-			return "", err
-		} else {
-			Incr()
+		if data.Genotyped {
+			if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+				return "", err
+			} else {
+				Incr()
+			}
+		}else {
+			if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+				return "", err
+			} else {
+				Incr()
+			}
 		}
-		if err = f.SetCellValue(ListName, cellName, data.Approved); err != nil {
-			return "", err
-		} else {
-			Incr()
+		
+		if data.Approved {
+			if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+				return "", err
+			} else {
+				Incr()
+			}
+		}else {
+			if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+				return "", err
+			} else {
+				Incr()
+			}
 		}
 		// Проверку придется начать с 8-ого эл-та т.е. с 7-ого индекса
 		if hw[ctr] {
@@ -279,22 +302,22 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 			}
 		}
 		ctr++
-		if hw[ctr] {
-			if data.HozName != nil {
-				if err = f.SetCellValue(ListName, cellName, *data.HozName); err != nil {
-					return "", err
-				} else {
-					Incr()
-				}
-			} else {
-				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
-					return "", err
-				} else {
-					Incr()
-				}
-			}
-		}
-		ctr++
+		// if hw[ctr] {
+		// 	if data.HozName != nil {
+		// 		if err = f.SetCellValue(ListName, cellName, *data.HozName); err != nil {
+		// 			return "", err
+		// 		} else {
+		// 			Incr()
+		// 		}
+		// 	} else {
+		// 		if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
+		// 			return "", err
+		// 		} else {
+		// 			Incr()
+		// 		}
+		// 	}
+		// }
+		// ctr++
 		if hw[ctr] {
 			if data.DeathDate != nil && !data.DeathDate.Time.IsZero() {
 				if err = f.SetCellValue(ListName, cellName, data.DeathDate.Time); err != nil {
@@ -313,10 +336,18 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		ctr++
 		if hw[ctr] {
 			if data.IsDead != nil {
-				if err = f.SetCellValue(ListName, cellName, *data.IsDead); err != nil {
-					return "", err
-				} else {
-					Incr()
+				if *data.IsDead {
+					if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
+				}else {
+					if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
 				}
 			} else {
 				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
@@ -329,10 +360,18 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		ctr++
 		if hw[ctr] {
 			if data.IsTwins != nil {
-				if err = f.SetCellValue(ListName, cellName, *data.IsTwins); err != nil {
-					return "", err
-				} else {
-					Incr()
+				if *data.IsTwins {
+					if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
+				}else {
+					if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
 				}
 			} else {
 				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
@@ -345,10 +384,18 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		ctr++
 		if hw[ctr] {
 			if data.IsStillBorn != nil {
-				if err = f.SetCellValue(ListName, cellName, *data.IsStillBorn); err != nil {
-					return "", err
-				} else {
-					Incr()
+				if *data.IsStillBorn {
+					if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
+				}else {
+					if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
 				}
 			} else {
 				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
@@ -361,10 +408,18 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		ctr++
 		if hw[ctr] {
 			if data.IsAborted != nil {
-				if err = f.SetCellValue(ListName, cellName, *data.IsAborted); err != nil {
-					return "", err
-				} else {
-					Incr()
+				if *data.IsAborted {
+					if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
+				}else {
+					if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
 				}
 			} else {
 				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
@@ -377,10 +432,18 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 		ctr++
 		if hw[ctr] {
 			if data.IsGenotyped != nil {
-				if err = f.SetCellValue(ListName, cellName, *data.IsGenotyped); err != nil {
-					return "", err
-				} else {
-					Incr()
+				if *data.IsGenotyped {
+					if err = f.SetCellValue(ListName, cellName, "да"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
+				}else {
+					if err = f.SetCellValue(ListName, cellName, "нет"); err != nil {
+						return "", err
+					} else {
+						Incr()
+					}
 				}
 			} else {
 				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {

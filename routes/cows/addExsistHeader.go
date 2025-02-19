@@ -78,7 +78,7 @@ func addExistsHeaderToFile(filter *cows_filter.CowsFilter) []bool {
 	}
 	// Заголовок hozName
 	if filter.HozId != nil {
-		arrExistOfHeaders = append(arrExistOfHeaders, true)
+		arrExistOfHeaders = append(arrExistOfHeaders, false) // Вычеркнули поле
 	}else {
 		arrExistOfHeaders = append(arrExistOfHeaders, false)
 	}

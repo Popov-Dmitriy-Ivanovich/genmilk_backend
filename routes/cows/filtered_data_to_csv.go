@@ -18,7 +18,10 @@ const formatToDate = "2006-01-02"
 // 	ListName = "List1"
 // )
 
+
 func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string, error) {
+	Y := "да" // да
+	N := "нет" // нет
 	// Создаем csv файл с отложеным закрытием
 	now := time.Now()
 	fullPath := PathToCSVFile + "filtered_data_" + strconv.FormatInt(now.Unix(), 16) + "_" + strconv.FormatUint(uint64(len(fsc)), 16) + ".csv"
@@ -113,9 +116,17 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 		}else {
 			strOfFile = append(strOfFile, EmptyValue)
 		}
+		if data.Genotyped {
+			strOfFile = append(strOfFile, Y)
+		}else {
+			strOfFile = append(strOfFile, N)
+		}
 		
-		strOfFile = append(strOfFile,strconv.FormatBool(data.Genotyped))
-		strOfFile = append(strOfFile,strconv.FormatBool(data.Approved))
+		if data.Approved {
+			strOfFile = append(strOfFile, Y)
+		}else {
+			strOfFile = append(strOfFile, N)
+		}
 		
 		if hw[ctr] {
 			if data.DepartDate != nil {
@@ -181,14 +192,14 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 			}
 		}
 		ctr++
-		if hw[ctr] {
-			if data.HozName != nil {
-				strOfFile = append(strOfFile,*data.HozName)
-			} else {
-				strOfFile = append(strOfFile,EmptyValue)
-			}
-		}
-		ctr++
+		// if hw[ctr] {
+		// 	if data.HozName != nil {
+		// 		strOfFile = append(strOfFile,*data.HozName)
+		// 	} else {
+		// 		strOfFile = append(strOfFile,EmptyValue)
+		// 	}
+		// }
+		// ctr++
 		if hw[ctr] {
 			if data.DeathDate != nil {
 				strOfFile = append(strOfFile,data.DeathDate.Time.Format(formatToDate))
@@ -199,7 +210,11 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 		ctr++
 		if hw[ctr] {
 			if data.IsDead != nil {
-				strOfFile = append(strOfFile,strconv.FormatBool(*data.IsDead))
+				if *data.IsDead {
+					strOfFile = append(strOfFile, Y)
+				}else {
+					strOfFile = append(strOfFile, N)
+				}
 			} else {
 				strOfFile = append(strOfFile,EmptyValue)
 			}
@@ -207,7 +222,11 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 		ctr++
 		if hw[ctr] {
 			if data.IsTwins != nil {
-				strOfFile = append(strOfFile,strconv.FormatBool(*data.IsTwins))
+				if *data.IsTwins {
+					strOfFile = append(strOfFile, Y)
+				}else {
+					strOfFile = append(strOfFile, N)
+				}
 			} else {
 				strOfFile = append(strOfFile,EmptyValue)
 			}
@@ -215,7 +234,11 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 		ctr++
 		if hw[ctr] {
 			if data.IsStillBorn != nil {
-				strOfFile = append(strOfFile,strconv.FormatBool(*data.IsStillBorn))
+				if *data.IsStillBorn {
+					strOfFile = append(strOfFile, Y)
+				}else {
+					strOfFile = append(strOfFile, N)
+				}
 			} else {
 				strOfFile = append(strOfFile, EmptyValue)
 			}
@@ -223,7 +246,11 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 		ctr++
 		if hw[ctr] {
 			if data.IsAborted != nil {
-				strOfFile = append(strOfFile,strconv.FormatBool(*data.IsAborted))
+				if *data.IsAborted {
+					strOfFile = append(strOfFile, Y)
+				}else {
+					strOfFile = append(strOfFile, N)
+				}
 			} else {
 				strOfFile = append(strOfFile,EmptyValue)
 			}
@@ -231,7 +258,11 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 		ctr++
 		if hw[ctr] {
 			if data.IsGenotyped != nil {
-				strOfFile = append(strOfFile,strconv.FormatBool(*data.IsGenotyped))
+				if *data.IsGenotyped {
+					strOfFile = append(strOfFile, Y)
+				}else {
+					strOfFile = append(strOfFile, N)
+				}
 			} else {
 				strOfFile = append(strOfFile,EmptyValue)
 			}

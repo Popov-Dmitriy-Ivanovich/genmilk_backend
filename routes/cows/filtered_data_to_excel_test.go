@@ -20,8 +20,8 @@ func TestToExcelOld(t *testing.T) {
 	invNumber := "321"
 	breed := "Какая-нибудь порода"
 	sex := "Корова"
-	now := time.Now()
-	date := models.DateOnly{Time: time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, time.UTC)}
+	// now := time.Now()
+	date := models.DateOnly{Time: time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC)}
 	coef := 3.14
 	isTrue := true
 	
