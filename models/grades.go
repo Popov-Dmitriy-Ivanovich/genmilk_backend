@@ -10,3 +10,11 @@ type Grade struct {
 	EbvInsemenation *float64 // Оценка кратности осеменения по EBV
 	EvbService      *float64 // Оценка длительности сервисного периода по EBV
 }
+
+type GradeRegion struct {
+	Grade
+}
+
+type GradeHoz struct {
+	Grade
+}
