@@ -23,7 +23,8 @@ func (c *Cows) WriteRoutes(rg *gin.RouterGroup) {
 	authGroup := apiGroup.Group("")
 	authGroup.Use(auth.AuthMiddleware(auth.Farmer, auth.RegionalOff, auth.FederalOff))
 	authGroup.POST("/filter", c.Filter())
-	authGroup.POST("/filterExcel", c.SendExcel()) // получение excel файла
-	authGroup.POST("/filterCSV", c.SendCSV()) // получение csv файла
+	authGroup.POST("/filterExcel", c.SendExcel())
+	authGroup.POST("/filterCSV", c.SendCSV())
+	authGroup.POST("/delByFilters", c.toDeleteRows())
 	apiGroup.GET("/:id/documents", c.Document())
 }

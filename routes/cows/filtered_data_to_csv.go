@@ -192,14 +192,14 @@ func ToCSVFile(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string,
 			}
 		}
 		ctr++
-		// if hw[ctr] {
-		// 	if data.HozName != nil {
-		// 		strOfFile = append(strOfFile,*data.HozName)
-		// 	} else {
-		// 		strOfFile = append(strOfFile,EmptyValue)
-		// 	}
-		// }
-		// ctr++
+		if hw[ctr] {
+			if data.HozName != nil {
+				strOfFile = append(strOfFile,*data.HozName)
+			} else {
+				strOfFile = append(strOfFile,EmptyValue)
+			}
+		}
+		ctr++
 		if hw[ctr] {
 			if data.DeathDate != nil {
 				strOfFile = append(strOfFile,data.DeathDate.Time.Format(formatToDate))

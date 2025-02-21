@@ -47,11 +47,11 @@ func addExistsHeaderToFile(filter *cows_filter.CowsFilter) []bool {
 	if filter.GenotypingDateFrom != nil && *filter.GenotypingDateFrom != "" ||
 	filter.GenotypingDateTo != nil && *filter.GenotypingDateTo != "" {
 		arrExistOfHeaders = append(arrExistOfHeaders, true)
-		}else {
-			arrExistOfHeaders = append(arrExistOfHeaders, false)
-		}
-		// Наличие заголовка InbrindingCoeffByFamily 
-		if filter.InbrindingCoeffByFamilyFrom != nil || filter.InbrindingCoeffByFamilyTo != nil {
+	}else {
+		arrExistOfHeaders = append(arrExistOfHeaders, false)
+	}
+	// Наличие заголовка InbrindingCoeffByFamily 
+	if filter.InbrindingCoeffByFamilyFrom != nil || filter.InbrindingCoeffByFamilyTo != nil {
 		arrExistOfHeaders = append(arrExistOfHeaders, true)
 	}else {
 		arrExistOfHeaders = append(arrExistOfHeaders, false)
@@ -85,8 +85,12 @@ func addExistsHeaderToFile(filter *cows_filter.CowsFilter) []bool {
 
 	// Заголовк поля даты и факта смерти
 	if filter.IsDead != nil {
-		arrExistOfHeaders = append(arrExistOfHeaders, true)
-		arrExistOfHeaders = append(arrExistOfHeaders, true)
+		if *filter.IsDead {
+			arrExistOfHeaders = append(arrExistOfHeaders, true) // DeathDate если мертво
+		}else {
+			arrExistOfHeaders = append(arrExistOfHeaders, false)
+		}
+		arrExistOfHeaders = append(arrExistOfHeaders, true) // IsDead
 	}else {
 		arrExistOfHeaders = append(arrExistOfHeaders, false)
 		arrExistOfHeaders = append(arrExistOfHeaders, false)

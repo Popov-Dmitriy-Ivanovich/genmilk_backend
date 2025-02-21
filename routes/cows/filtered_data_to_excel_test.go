@@ -115,7 +115,7 @@ func TestToExcelOld(t *testing.T) {
 
 			DeathDate:   nil,
 			IsDead:      nil,
-			IsTwins:     nil,
+			IsTwins:     &isTrue,
 			IsStillBorn: nil,
 			IsAborted:   nil,
 			Events:      []models.Event{},
@@ -128,8 +128,8 @@ func TestToExcelOld(t *testing.T) {
 		t.Fatalf("Ошибка создания директории: %v", err)
 	}
 	// _ = testPathToExcelFile
-	// _ = forDeleteTestPath
-	defer os.RemoveAll(forDeleteTestPath)
+	_ = forDeleteTestPath
+	// defer os.RemoveAll(forDeleteTestPath)
 
 	// Формируем путь к тестовому файлу
 
