@@ -47,17 +47,19 @@ func (c *Cows) toDeleteRows() func(*gin.Context) {
 			query = nQuery
 		}
 
-		
-		nextquery := db.Where("id IN (?)", query)
-		if err := nextquery.Delete(&models.Cow{}).Error; err != nil {
+		res := db.Where("id IN (?)", query).Delete(&models.Cow{})
+
+		resCount := res.RowsAffected
+		if err := res.Error; err != nil {
 			c.JSON(500, err.Error())
 			return
 		}
-		
-		resCount := int64(0)
-		if err := nextquery.Count(&resCount).Error; err != nil {
-			c.JSON(500, err.Error())
-			return
-		}
+
+		c.JSON(200, gin.H{
+			"N":   resCount,
+			// "LST": rc,
+			// "query": query,
+		})
+
 	}
 }

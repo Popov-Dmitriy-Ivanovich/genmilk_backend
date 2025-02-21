@@ -302,22 +302,22 @@ func ToExcelOld(fsc []FilterSerializedCow, SelecsId []uint64, hw []bool) (string
 			}
 		}
 		ctr++
-		// if hw[ctr] {
-		// 	if data.HozName != nil {
-		// 		if err = f.SetCellValue(ListName, cellName, *data.HozName); err != nil {
-		// 			return "", err
-		// 		} else {
-		// 			Incr()
-		// 		}
-		// 	} else {
-		// 		if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
-		// 			return "", err
-		// 		} else {
-		// 			Incr()
-		// 		}
-		// 	}
-		// }
-		// ctr++
+		if hw[ctr] {
+			if data.HozName != nil {
+				if err = f.SetCellValue(ListName, cellName, *data.HozName); err != nil {
+					return "", err
+				} else {
+					Incr()
+				}
+			} else {
+				if err = f.SetCellValue(ListName, cellName, EmptyValue); err != nil {
+					return "", err
+				} else {
+					Incr()
+				}
+			}
+		}
+		ctr++
 		if hw[ctr] {
 			if data.DeathDate != nil && !data.DeathDate.Time.IsZero() {
 				if err = f.SetCellValue(ListName, cellName, data.DeathDate.Time); err != nil {
