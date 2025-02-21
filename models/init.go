@@ -32,7 +32,8 @@ func initDb() error {
 	}
 
 	db.AutoMigrate(&Cow{}, &Genetic{}, &GeneticIllnessStatus{}, &GeneticIllnessData{}, &GeneticIllness{}, &User{}, &Region{}, &News{}, &Partner{}, &Breed{}, &Farm{}, &Role{}, &Sex{}, &Event{}, &Grade{},
-		&EventType{}, &Lactation{}, &CheckMilk{}, &DailyMilk{}, &District{}, &Exterior{}, &Update{}, &Document{}, &UserRegisterRequest{}, &HozRegisterRequest{}, &HoldRegisterRequest{})
+		&EventType{}, &Lactation{}, &CheckMilk{}, &DailyMilk{}, &District{}, &Exterior{}, &Update{}, &Document{}, &UserRegisterRequest{}, &HozRegisterRequest{}, &HoldRegisterRequest{}, &GradeRegion{}, &GradeHoz{},
+		&RegionalStatistics{}, &HozStatistics{})
 	dbConnection = db
 	return nil
 }

@@ -17,14 +17,14 @@ type Statistics struct {
 }
 
 type RegionalStatistics struct {
-	ID       uint
+	ID       uint `gorm:"primaryKey"`
 	RegionID uint
 	Region   Region
 	Statistics
 }
 
 type HozStatistics struct {
-	ID    uint
+	ID    uint `gorm:"primaryKey"`
 	HozID uint
 	Hoz   Farm
 	Statistics
