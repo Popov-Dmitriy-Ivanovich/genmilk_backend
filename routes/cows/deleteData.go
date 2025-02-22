@@ -3,7 +3,7 @@ package cows
 import (
 	"encoding/json"
 	"io"
-	_"net/http"
+	"net/http"
 
 	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/filters/cows_filter"
 	"github.com/Popov-Dmitriy-Ivanovich/genmilk_backend/models"
@@ -12,11 +12,16 @@ import (
 
 func (c *Cows) toDeleteRows() func(*gin.Context) {
 	return func(c *gin.Context) {
-		// roleId, exists := c.Get("RoleId") // номер роли при анутификации
-		// if !exists {
-		// 	c.JSON(http.StatusInternalServerError, "RoleId не найден в контексте")
-		// 	return
-		// }
+		roleId, exists := c.Get("RoleId") // номер роли при анутификации
+		if !exists {
+			c.JSON(http.StatusInternalServerError, "RoleId не найден в контексте")
+			return
+		}
+		
+		if roleId != 4 { 
+			c.JSON(401, "")
+			return
+		}
 		
 		jsonData, err := io.ReadAll(c.Request.Body) // Читаем тело запроса
 		if err != nil {
@@ -32,11 +37,6 @@ func (c *Cows) toDeleteRows() func(*gin.Context) {
 				return
 			}
 		}
-		
-		// if roleId != 4 { 
-		// 	c.JSON(401, err.Error())
-		// 	return
-		// }
 		
 		db := models.GetDb()
 		query := db.Model(&models.Cow{}).Select("id").Preload("FarmGroup").Preload("Genetic").Where("approved <> -1") 
