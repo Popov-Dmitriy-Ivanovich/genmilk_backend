@@ -113,7 +113,7 @@ func (c *Cows) SendExcel() func(*gin.Context) {
 			c.JSON(500, err.Error())
 			return
 		}
-
+		
 		query = query.Limit(int(recordsPerPage)).Offset(int(recordsPerPage) * int(pageNumber-1)).Order("inventory_number")
 		dbCows := []models.Cow{}
 		if err := query.Debug().Find(&dbCows).Error; err != nil {

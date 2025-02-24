@@ -1046,6 +1046,61 @@ const docTemplate = `{
                 }
             }
         },
+        "/cows/delByFilters": {
+            "post": {
+                "description": "Удаляет коров по выстановленным фильтрам\nВозращает словарь с ключом \"N\". По ключу \"N\" - общее кол-во удаленных коров.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Cows"
+                ],
+                "summary": "Deleting rows by filters",
+                "parameters": [
+                    {
+                        "description": "removal by filters",
+                        "name": "filter",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/cows_filter.CowsFilter"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/cows/filter": {
             "post": {
                 "description": "Возращает словарь с двумя ключами \"N\", \"LST\". По ключу \"N\" - общее кол-во найденных коров,\nпо ключу \"LST\" массив объектов filterSerealizedCow (см. Models)",
@@ -2690,16 +2745,6 @@ const docTemplate = `{
                 "genetic": {
                     "$ref": "#/definitions/models.Genetic"
                 },
-                "gradeHozId": {
-                    "description": "Оценка по хозяйству",
-                    "type": "integer",
-                    "example": 1
-                },
-                "gradeRegionId": {
-                    "description": "Оценка по региону",
-                    "type": "integer",
-                    "example": 1
-                },
                 "holding": {
                     "$ref": "#/definitions/models.Farm"
                 },
@@ -3124,16 +3169,6 @@ const docTemplate = `{
                 },
                 "genetic": {
                     "$ref": "#/definitions/models.Genetic"
-                },
-                "gradeHozId": {
-                    "description": "Оценка по хозяйству",
-                    "type": "integer",
-                    "example": 1
-                },
-                "gradeRegionId": {
-                    "description": "Оценка по региону",
-                    "type": "integer",
-                    "example": 1
                 },
                 "holding": {
                     "$ref": "#/definitions/models.Farm"
